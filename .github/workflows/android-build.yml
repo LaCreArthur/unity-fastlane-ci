@@ -1,4 +1,4 @@
-name: Android CI (AAB only)
+name: Android CI - Firebase Distribution
 
 on:
   push:
@@ -11,7 +11,7 @@ env:
   ANDROID_BUILD_PATH: build/Android/Android.aab
 
 jobs:
-  build-android:
+  build-and-distribute-android:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,6 +36,7 @@ jobs:
             Library-Android-
 
       - name: Build Android AAB (GameCI)
+        id: unity_build
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -44,6 +45,10 @@ jobs:
         with:
           targetPlatform: Android
           unityVersion: ${{ env.UNITY_VERSION }}
+
+          # Use GameCI semantic versioning so Unity version & Android versionCode are auto-managed
+          versioning: Semantic
+
           androidExportType: androidAppBundle
           androidKeystoreName: user.keystore
           androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -51,16 +56,28 @@ jobs:
           androidKeyaliasName: ${{ secrets.ANDROID_KEY_ALIAS_NAME }}
           androidKeyaliasPass: ${{ secrets.ANDROID_KEY_ALIAS_PASS }}
 
+      - name: Generate Firebase release notes
+        run: |
+          SHORT_SHA=${GITHUB_SHA::7}
+          {
+            echo "Version: ${{ steps.unity_build.outputs.buildVersion }} (code: ${{ steps.unity_build.outputs.androidVersionCode }})"
+            echo "Commit: $SHORT_SHA"
+            echo
+            git log -1 --pretty=%B
+          } > firebase_release_notes.txt
+
+      # Optional: artifact for manual download/debug
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
         with:
           name: android-aab
           path: ${{ env.ANDROID_BUILD_PATH }}
-      
-      - name: Distribute to Firebase App Distribution
+
+      - name: Distribute AAB to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
           groups: qa-testers
           file: ${{ env.ANDROID_BUILD_PATH }}
+          releaseNotesFile: firebase_release_notes.txt
