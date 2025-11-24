@@ -76,3 +76,4 @@ crashlytics-build.properties
 
 .utmp/
 .idea/
+user.keystore*
