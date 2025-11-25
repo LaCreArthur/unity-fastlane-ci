@@ -78,3 +78,25 @@ crashlytics-build.properties
 .idea/
 user.keystore*
 play-api-ci*
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
+
+# Firebase / Google credentials
+firebase-service-account.json
+*-service-account.json
+*.p8
+*.p12
+*.mobileprovision
+
+# Release notes (generated during CI)
+firebase_release_notes.txt
+
+# Ruby
+vendor/bundle/
+.bundle/
+Gemfile.lock

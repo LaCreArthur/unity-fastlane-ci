@@ -1,34 +1,128 @@
 default_platform(:android)
 
+# Read release notes from file or use provided string
+# @param options [Hash] Options hash with :notes_path or :notes
+# @return [String] Release notes content
 def read_release_notes(options)
   if options[:notes_path]
-    File.read(options[:notes_path])
-  else
+    # Resolve path relative to project root (parent of fastlane directory)
+    notes_path = options[:notes_path].to_s
+    
+    # If path is relative, resolve from project root
+    unless Pathname.new(notes_path).absolute?
+      project_root = File.expand_path('..', __dir__)
+      notes_path = File.join(project_root, notes_path)
+    end
+    
+    if File.exist?(notes_path)
+      File.read(notes_path)
+    else
+      UI.important("Release notes file not found at: #{notes_path}")
+      UI.important("Using default release notes")
+      default_release_notes
+    end
+  elsif options[:notes] && !options[:notes].to_s.empty?
     options[:notes].to_s
+  else
+    default_release_notes
   end
 end
 
-platform :android do
-  desc "Distribute Android build to Firebase and Play"
-  lane :distribute do |options|
-    notes = read_release_notes(options)
+# Default release notes when none provided
+def default_release_notes
+  "New build available for testing"
+end
 
+# Validate required environment variable exists
+def require_env!(name)
+  value = ENV[name]
+  UI.user_error!("Missing required environment variable: #{name}") if value.nil? || value.empty?
+  value
+end
+
+platform :android do
+  desc "Distribute Android build to Firebase App Distribution and optionally to Play Store"
+  lane :distribute do |options|
+    # Validate required environment variables
+    firebase_app_id = require_env!("FIREBASE_APP_ID_ANDROID")
+    aab_path = require_env!("ANDROID_AAB_PATH")
+    
+    # Resolve AAB path relative to project root
+    unless Pathname.new(aab_path).absolute?
+      project_root = File.expand_path('..', __dir__)
+      aab_path = File.join(project_root, aab_path)
+    end
+    
+    UI.user_error!("AAB file not found at: #{aab_path}") unless File.exist?(aab_path)
+    
+    notes = read_release_notes(options)
+    UI.message("Release notes: #{notes}")
+
+    # Distribute to Firebase App Distribution
     firebase_app_distribution(
-      app: ENV["FIREBASE_APP_ID_ANDROID"],
+      app: firebase_app_id,
       android_artifact_type: "AAB",
-      android_artifact_path: ENV["ANDROID_AAB_PATH"],
-      groups: "qa-testers",
+      android_artifact_path: aab_path,
+      groups: options[:groups] || "qa-testers",
       release_notes: notes
     )
 
+    # Optionally upload to Play Store
     if options[:upload_to_store].to_s == "true"
+      gplay_json = require_env!("GPLAY_SERVICE_JSON")
+      
       upload_to_play_store(
-        track: "alpha",  # or "beta"
-        json_key_data: ENV["GPLAY_SERVICE_JSON"],
-        aab: ENV["ANDROID_AAB_PATH"],
+        track: options[:track] || "internal",
+        json_key_data: gplay_json,
+        aab: aab_path,
         skip_upload_metadata: true,
         skip_upload_images: true,
         skip_upload_screenshots: true
+      )
+    end
+  end
+end
+
+platform :ios do
+  desc "Distribute iOS build to Firebase App Distribution and optionally to App Store Connect"
+  lane :distribute do |options|
+    # Validate required environment variables
+    firebase_app_id = require_env!("FIREBASE_APP_ID_IOS")
+    ipa_path = require_env!("IOS_IPA_PATH")
+    
+    # Resolve IPA path relative to project root
+    unless Pathname.new(ipa_path).absolute?
+      project_root = File.expand_path('..', __dir__)
+      ipa_path = File.join(project_root, ipa_path)
+    end
+    
+    UI.user_error!("IPA file not found at: #{ipa_path}") unless File.exist?(ipa_path)
+    
+    notes = read_release_notes(options)
+    UI.message("Release notes: #{notes}")
+
+    # Distribute to Firebase App Distribution
+    firebase_app_distribution(
+      app: firebase_app_id,
+      ipa_path: ipa_path,
+      groups: options[:groups] || "qa-testers",
+      release_notes: notes
+    )
+
+    # Optionally upload to App Store Connect
+    if options[:upload_to_store].to_s == "true"
+      # App Store Connect API key authentication
+      app_store_connect_api_key(
+        key_id: require_env!("APP_STORE_CONNECT_KEY_ID"),
+        issuer_id: require_env!("APP_STORE_CONNECT_ISSUER_ID"),
+        key_content: require_env!("APP_STORE_CONNECT_KEY_CONTENT"),
+        is_key_content_base64: true
+      )
+      
+      upload_to_testflight(
+        ipa: ipa_path,
+        skip_waiting_for_build_processing: true,
+        skip_submission: true
       )
     end
   end
