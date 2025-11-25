@@ -1,4 +1,4 @@
-name: Android CI - Firebase Distribution
+name: Android CI/CD
 
 on:
   push:
@@ -9,21 +9,21 @@ on:
 env:
   UNITY_VERSION: 6000.0.62f1
   ANDROID_BUILD_PATH: build/Android/Android.aab
-  PLAY_PACKAGE_NAME: com.crearthur.fastlanegameci
 
 jobs:
-  build-and-distribute-android:
+  build-and-deploy-android:
+    name: Android Build & Deploy
     runs-on: ubuntu-latest
 
     steps:
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
         with:
-          tool-cache: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-          
+          tool-cache: true       # Frees preinstalled tool cache for more space
+          large-packages: true   # Removes Android SDKs, .NET, etc.
+          docker-images: true    # Removes pre-pulled Docker images
+          swap-storage: true     # Frees swap file
+
       - uses: actions/checkout@v4
         with:
           lfs: true
@@ -57,7 +57,7 @@ jobs:
           androidKeyaliasName: ${{ secrets.ANDROID_KEY_ALIAS_NAME }}
           androidKeyaliasPass: ${{ secrets.ANDROID_KEY_ALIAS_PASS }}
 
-      - name: Generate Firebase release notes
+      - name: Generate Release Notes
         run: |
           SHORT_SHA=${GITHUB_SHA::7}
           {
@@ -73,12 +73,25 @@ jobs:
         with:
           name: android-aab
           path: ${{ env.ANDROID_BUILD_PATH }}
-
-      - name: Distribute AAB to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          appId: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
-          groups: qa-testers
-          file: ${{ env.ANDROID_BUILD_PATH }}
-          releaseNotesFile: firebase_release_notes.txt
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Write Firebase service account key
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}' > firebase-service-account.json
+        shell: bash
+      
+      - name: Fastlane Distribute (Android)
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/firebase-service-account.json
+          FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+          GPLAY_SERVICE_JSON: ${{ secrets.GPLAY_SERVICE_JSON }}
+          ANDROID_AAB_PATH: ${{ env.ANDROID_BUILD_PATH }}
+        run: |
+          bundle exec fastlane android distribute \
+          notes_path:firebase_release_notes.txt \
+          upload_to_store:${{ github.ref == 'refs/heads/master' }}

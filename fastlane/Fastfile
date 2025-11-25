@@ -1,20 +1,35 @@
 default_platform(:android)
 
+def read_release_notes(options)
+  if options[:notes_path]
+    File.read(options[:notes_path])
+  else
+    options[:notes].to_s
+  end
+end
+
 platform :android do
-  desc "Upload AAB to Google Play Closed Beta"
-  lane :play_closed_alpha do |options|
-    aab_path = ENV["ANDROID_BUILD_PATH"]
+  desc "Distribute Android build to Firebase and Play"
+  lane :distribute do |options|
+    notes = read_release_notes(options)
 
-    upload_to_play_store(
-      track: "alpha",
-      json_key_data: ENV["GPLAY_SERVICE_JSON"],
-      package_name: ENV["PLAY_PACKAGE_NAME"],
-      aab: aab_path,
-
-      # Let Play handle rollout; skip metadata & assets
-      skip_upload_metadata: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_ANDROID"],
+      android_artifact_type: "AAB",
+      android_artifact_path: ENV["ANDROID_AAB_PATH"],
+      groups: "qa-testers",
+      release_notes: notes
     )
+
+    if options[:upload_to_store].to_s == "true"
+      upload_to_play_store(
+        track: "alpha",  # or "beta"
+        json_key_data: ENV["GPLAY_SERVICE_JSON"],
+        aab: ENV["ANDROID_AAB_PATH"],
+        skip_upload_metadata: true,
+        skip_upload_images: true,
+        skip_upload_screenshots: true
+      )
+    end
   end
 end
