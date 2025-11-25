@@ -14,10 +14,11 @@ Automated CI/CD pipeline for Unity games targeting Android and iOS platforms. Th
 
 ## Quick Start
 
-1. Copy this project's CI files to your Unity project
+1. Click **"Use this template"** to create your own repository
 2. Follow the [Complete Setup Guide](docs/SETUP_GUIDE.md)
-3. Configure GitHub secrets
-4. Push to trigger builds!
+3. Copy `Assets/google-services.json.template` → `Assets/google-services.json` and fill in your Firebase config
+4. Configure GitHub secrets
+5. Push to trigger builds!
 
 ## Documentation
 
@@ -65,6 +66,7 @@ See [SETUP_GUIDE.md](docs/SETUP_GUIDE.md) for detailed instructions on obtaining
 ### Android
 | Secret | Description |
 |--------|-------------|
+| `ANDROID_PACKAGE_NAME` | Android package name (e.g., `com.company.game`) |
 | `ANDROID_KEYSTORE_BASE64` | Base64-encoded keystore file |
 | `ANDROID_KEYSTORE_PASS` | Keystore password |
 | `ANDROID_KEY_ALIAS_NAME` | Key alias name |

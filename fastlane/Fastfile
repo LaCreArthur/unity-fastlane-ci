@@ -70,8 +70,10 @@ platform :android do
     # Optionally upload to Play Store
     if options[:upload_to_store].to_s == "true"
       gplay_json = require_env!("GPLAY_SERVICE_JSON")
+      package_name = require_env!("ANDROID_PACKAGE_NAME")
       
       upload_to_play_store(
+        package_name: package_name,
         track: options[:track] || "internal",
         json_key_data: gplay_json,
         aab: aab_path,

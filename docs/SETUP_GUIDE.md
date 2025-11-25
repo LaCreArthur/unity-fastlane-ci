@@ -266,6 +266,14 @@ Save the **entire contents** as `FIREBASE_SERVICE_ACCOUNT_JSON`.
 
 > 💡 **Tip**: Create multiple groups like `qa-testers`, `beta-testers`, `stakeholders` for different release stages.
 
+### Step 8: Add Firebase Config to Your Unity Project
+
+1. Copy `Assets/google-services.json.template` to `Assets/google-services.json`
+2. Replace the placeholder values with your Firebase project info
+3. For iOS, also download `GoogleService-Info.plist` from Firebase Console
+
+> ⚠️ **Note**: `google-services.json` is gitignored to prevent accidental exposure of your Firebase config.
+
 ---
 
 ## Android Configuration
@@ -555,7 +563,8 @@ Now add all the secrets to your GitHub repository.
 
 #### Android (Required for Android builds)
 | Secret Name | Description | Example |
-|-------------|-------------|---------|
+|-------------|-------------|----------|
+| `ANDROID_PACKAGE_NAME` | Android package name | `com.yourcompany.yourgame` |
 | `ANDROID_KEYSTORE_BASE64` | Base64-encoded keystore | `MIIKfwIBAzCCC...` |
 | `ANDROID_KEYSTORE_PASS` | Keystore password | `your-keystore-pass` |
 | `ANDROID_KEY_ALIAS_NAME` | Key alias | `upload-key` |

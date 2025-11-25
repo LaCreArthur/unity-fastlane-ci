@@ -110,6 +110,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/firebase-service-account.json
           FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
           GPLAY_SERVICE_JSON: ${{ secrets.GPLAY_SERVICE_JSON }}
+          ANDROID_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
           ANDROID_AAB_PATH: ${{ github.workspace }}/${{ env.ANDROID_BUILD_PATH }}
         run: |
           bundle exec fastlane android distribute \
