@@ -92,6 +92,8 @@ firebase-service-account.json
 *.p8
 *.p12
 *.mobileprovision
+Assets/google-services.json
+Assets/GoogleService-Info.plist
 
 # Release notes (generated during CI)
 firebase_release_notes.txt

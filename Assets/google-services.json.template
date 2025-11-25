@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "73423133194",
-    "project_id": "fastlane-game-ci",
-    "storage_bucket": "fastlane-game-ci.firebasestorage.app"
+    "project_number": "YOUR_PROJECT_NUMBER",
+    "project_id": "your-firebase-project-id",
+    "storage_bucket": "your-firebase-project-id.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:73423133194:android:ed3bf67921167fe4ee9df3",
+        "mobilesdk_app_id": "1:YOUR_PROJECT_NUMBER:android:YOUR_APP_HASH",
         "android_client_info": {
-          "package_name": "com.crearthur.fastlanegameci"
+          "package_name": "com.yourcompany.yourgame"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDDgXa9dQV1HB1srUTWODHTDys6prIBji4"
+          "current_key": "YOUR_FIREBASE_API_KEY"
         }
       ],
       "services": {
