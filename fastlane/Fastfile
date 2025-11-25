@@ -8,7 +8,7 @@ platform :android do
     upload_to_play_store(
       track: "alpha",
       json_key_data: ENV["GPLAY_SERVICE_JSON"],
-      package_name: ENV["PLAY_PACKAGE_NAME"]
+      package_name: ENV["PLAY_PACKAGE_NAME"],
       aab: aab_path,
 
       # Let Play handle rollout; skip metadata & assets
