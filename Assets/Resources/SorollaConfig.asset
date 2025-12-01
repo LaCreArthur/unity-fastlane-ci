@@ -18,3 +18,6 @@ MonoBehaviour:
   maxInterstitialAdUnitId: 
   maxBannerAdUnitId: 
   adjustAppToken: 
+  enableFirebaseAnalytics: 1
+  enableCrashlytics: 1
+  enableRemoteConfig: 1 
