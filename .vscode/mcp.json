@@ -1,0 +1,15 @@
+{
+	"servers": {
+		"notion": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@notionhq/notion-mcp-server"
+			],
+			"env": {
+				"NOTION_TOKEN": "ntn_R63198544453qVCXsfLfewYNKriwBzs5k8KSYN9x30ycSB"
+			}
+		}
+	},
+	"inputs": []
+}
