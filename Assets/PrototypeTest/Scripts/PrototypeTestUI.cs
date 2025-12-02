@@ -166,11 +166,11 @@ namespace Sorolla.Samples
         void LogInstalledSdks()
         {
             Log("📦 Detected SDKs:");
-            Log($"   • GameAnalytics: {(_hasGameAnalytics ? "✅" : "❌")}");
-            Log($"   • Facebook: {(_hasFacebook ? "✅" : "❌")}");
-            Log($"   • Firebase Analytics: {(_hasFirebaseAnalytics ? "✅" : "⬜")}");
-            Log($"   • Firebase Crashlytics: {(_hasFirebaseCrashlytics ? "✅" : "⬜")}");
-            Log($"   • Firebase Remote Config: {(_hasFirebaseRemoteConfig ? "✅" : "⬜")}");
+            Log($" • GameAnalytics: {(_hasGameAnalytics ? "✅" : "❌")}");
+            Log($" • Facebook: {(_hasFacebook ? "✅" : "❌")}");
+            Log($" • Firebase Analytics: {(_hasFirebaseAnalytics ? "✅" : "⬜")}");
+            Log($" • Firebase Crashlytics: {(_hasFirebaseCrashlytics ? "✅" : "⬜")}");
+            Log($" • Firebase Remote Config: {(_hasFirebaseRemoteConfig ? "✅" : "⬜")}");
         }
 
         bool IsPrototypeMode() => Sorolla.Config == null || Sorolla.Config.isPrototypeMode;
@@ -190,10 +190,10 @@ namespace Sorolla.Samples
         public void RefreshStatus()
         {
             bool initialized = Sorolla.IsInitialized;
-            sdkStatusText.text = initialized ? "✅ Initialized" : "⏳ Not Ready";
+            sdkStatusText.text = initialized ? "Initialized" : "Not Ready";
             sdkStatusText.color = initialized ? new Color(0.4f, 0.9f, 0.4f) : new Color(0.9f, 0.7f, 0.3f);
 
-            modeText.text = IsPrototypeMode() ? "🧪 Prototype" : "🚀 Full";
+            modeText.text = IsPrototypeMode() ? "PROTOTYPE MODE" : "FULL MODE";
             versionText.text = "v2.1.0"; //Todo: get it dynamically
         }
 
@@ -342,7 +342,7 @@ namespace Sorolla.Samples
         void Log(string message)
         {
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
-            string line = $"<color=#888>[{timestamp}]</color> {message}";
+            string line = $"<color=#888>[{timestamp}]</color>  {message}";
 
             // Add at end (newest at bottom, like Unity Console)
             _logLines.Add(line);
