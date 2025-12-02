@@ -191,7 +191,9 @@ namespace Sorolla.Samples
         {
             bool initialized = Sorolla.IsInitialized;
             sdkStatusText.text = initialized ? "Initialized" : "Not Ready";
-            sdkStatusText.color = initialized ? new Color(0.4f, 0.9f, 0.4f) : new Color(0.9f, 0.7f, 0.3f);
+            ColorUtility.TryParseHtmlString("34D399", out Color successColor);
+            ColorUtility.TryParseHtmlString("FBC024", out Color errorColor);
+            sdkStatusText.color = initialized ? successColor : errorColor;
 
             modeText.text = IsPrototypeMode() ? "PROTOTYPE MODE" : "FULL MODE";
             versionText.text = "v2.1.0"; //Todo: get it dynamically
