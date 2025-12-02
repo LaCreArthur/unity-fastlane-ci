@@ -352,7 +352,7 @@ namespace Sorolla.Editor
             contentLayout.childControlHeight = false;
             contentLayout.childForceExpandWidth = true;
             contentLayout.childForceExpandHeight = false;
-
+            
             return section;
         }
 
@@ -371,6 +371,7 @@ namespace Sorolla.Editor
             row.AddComponent<LayoutElement>().preferredHeight = 35;
 
             var labelGO = CreateText(label, row.transform);
+
             labelGO.name = "Label";
             var labelTMP = labelGO.GetComponent<TextMeshProUGUI>();
             labelTMP.fontSize = 22;

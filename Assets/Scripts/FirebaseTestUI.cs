@@ -170,12 +170,7 @@ public class FirebaseTestUI : MonoBehaviour
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Firebase RC Ready:", GUILayout.Width(150));
-        GUILayout.Label(Sorolla.Sorolla.IsFirebaseRemoteConfigReady() ? "✓ Yes" : "✗ No");
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal();
-        GUILayout.Label("GA Remote Config:", GUILayout.Width(150));
+        GUILayout.Label("Remote Config Ready:", GUILayout.Width(150));
         GUILayout.Label(Sorolla.Sorolla.IsRemoteConfigReady() ? "✓ Yes" : "✗ No");
         GUILayout.EndHorizontal();
 
@@ -183,8 +178,7 @@ public class FirebaseTestUI : MonoBehaviour
         {
             Log($"--- Status Refresh ---");
             Log($"Sorolla.IsInitialized: {Sorolla.Sorolla.IsInitialized}");
-            Log($"Firebase RC Ready: {Sorolla.Sorolla.IsFirebaseRemoteConfigReady()}");
-            Log($"GA RC Ready: {Sorolla.Sorolla.IsRemoteConfigReady()}");
+            Log($"Remote Config Ready: {Sorolla.Sorolla.IsRemoteConfigReady()}");
         }
     }
 
@@ -280,8 +274,8 @@ public class FirebaseTestUI : MonoBehaviour
 
         if (GUILayout.Button("Fetch Remote Config"))
         {
-            Log("Fetching Firebase Remote Config...");
-            Sorolla.Sorolla.FetchFirebaseRemoteConfig(success =>
+            Log("Fetching Remote Config...");
+            Sorolla.Sorolla.FetchRemoteConfig(success =>
             {
                 Log($"Fetch result: {(success ? "SUCCESS" : "FAILED")}");
             });
@@ -292,35 +286,26 @@ public class FirebaseTestUI : MonoBehaviour
 
         if (GUILayout.Button($"Get String: '{testStringKey}'"))
         {
-            var value = Sorolla.Sorolla.GetFirebaseRemoteConfig(testStringKey, "default_message");
+            var value = Sorolla.Sorolla.GetRemoteConfig(testStringKey, "default_message");
             Log($"'{testStringKey}' = \"{value}\"");
         }
 
         if (GUILayout.Button($"Get Int: '{testIntKey}'"))
         {
-            var value = Sorolla.Sorolla.GetFirebaseRemoteConfigInt(testIntKey, 0);
+            var value = Sorolla.Sorolla.GetRemoteConfigInt(testIntKey, 0);
             Log($"'{testIntKey}' = {value}");
         }
 
         if (GUILayout.Button($"Get Bool: '{testBoolKey}'"))
         {
-            var value = Sorolla.Sorolla.GetFirebaseRemoteConfigBool(testBoolKey, false);
+            var value = Sorolla.Sorolla.GetRemoteConfigBool(testBoolKey, false);
             Log($"'{testBoolKey}' = {value}");
         }
 
         if (GUILayout.Button($"Get Float: '{testFloatKey}'"))
         {
-            var value = Sorolla.Sorolla.GetFirebaseRemoteConfigFloat(testFloatKey, 1.0f);
+            var value = Sorolla.Sorolla.GetRemoteConfigFloat(testFloatKey, 1.0f);
             Log($"'{testFloatKey}' = {value}");
-        }
-
-        GUILayout.Space(5);
-        GUILayout.Label("GameAnalytics Remote Config:", GUI.skin.label);
-
-        if (GUILayout.Button("Get GA Config Value"))
-        {
-            var value = Sorolla.Sorolla.GetRemoteConfig("test_key", "not_found");
-            Log($"GA RemoteConfig 'test_key' = \"{value}\"");
         }
     }
 

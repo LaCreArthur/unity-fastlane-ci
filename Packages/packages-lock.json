@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "2126745713d08f1a52b6297e527799c99e5aa1f0"
+      "hash": "84f7b855e85e64c4b282f825dff85a9dad1bca9a"
     },
     "com.gameanalytics.sdk": {
       "version": "7.10.6",
@@ -74,6 +74,15 @@
       "version": "file:com.sorolla.sdk",
       "depth": 0,
       "source": "embedded",
+      "dependencies": {
+        "com.unity.textmeshpro": "3.0.6",
+        "com.unity.2d.sprite": "1.0.0"
+      }
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
       "dependencies": {}
     },
     "com.unity.ads.ios-support": {
@@ -234,6 +243,14 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.unity.textmeshpro": {
+      "version": "5.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.ugui": "2.0.0"
+      }
     },
     "com.unity.timeline": {
       "version": "1.8.9",
