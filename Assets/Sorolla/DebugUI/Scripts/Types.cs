@@ -4,12 +4,55 @@ using UnityEngine;
 namespace Sorolla.DebugUI
 {
     // Enums
-    public enum ToastType { Info, Success, Warning, Error }
-    public enum AdType { Interstitial, Rewarded, Banner }
-    public enum AdStatus { Idle, Loading, Loaded, Showing, Failed }
-    public enum SorollaMode { Prototype, Full }
-    public enum LogSource { UI, GA, Game, Sorolla, Firebase }
-    public enum LogLevel { All, Info, Warning, Error }
+    public enum AdType
+    {
+        Interstitial,
+        Rewarded,
+        Banner,
+    }
+
+    public enum AdStatus
+    {
+        Idle,
+        Loading,
+        Loaded,
+        Showing,
+        Failed,
+    }
+
+    public enum LogLevel
+    {
+        All,
+        Verbose,
+        Info,
+        Warning,
+        Error,
+    }
+
+    public enum LogSource
+    {
+        UI,
+        Game,
+        Sorolla,
+        GA,
+        Firebase,
+        MAX,
+        Adjust,
+    }
+
+    public enum ToastType
+    {
+        Info,
+        Success,
+        Warning,
+        Error,
+    }
+
+    public enum SorollaMode
+    {
+        Prototype,
+        Full,
+    }
 
     // Data structures
     [Serializable]

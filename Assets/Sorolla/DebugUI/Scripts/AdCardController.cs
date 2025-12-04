@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +5,7 @@ using UnityEngine.UI;
 namespace Sorolla.DebugUI
 {
     /// <summary>
-    ///     Controls an individual ad card.  Subscribes to ad status events.
+    ///     Controls an individual ad card. Self-sufficient - calls Sorolla API directly.
     /// </summary>
     public class AdCardController : UIComponentBase
     {
@@ -25,9 +24,6 @@ namespace Sorolla.DebugUI
         [SerializeField] Color _accentColor;
 
         AdStatus _currentStatus = AdStatus.Idle;
-
-        public Action OnLoadClicked;
-        public Action OnShowClicked;
 
         protected override void Awake()
         {
@@ -59,18 +55,58 @@ namespace Sorolla.DebugUI
 
         void HandleLoadClicked()
         {
-            OnLoadClicked?.Invoke();
+            SetStatus(AdStatus.Loading);
+            DebugPanelManager.Instance?.Log($"Loading {_adType}...", LogSource.Sorolla);
 
-            // Log the action
-            DebugPanelManager.Instance?.Log($"Loading {_adType}.. .");
+#if UNITY_EDITOR
+            // Editor mock: simulate ad loaded after delay
+            Invoke(nameof(MockAdLoaded), 1f);
+#endif
+            // Real SDK auto-loads ads - this is just for UI feedback
         }
 
         void HandleShowClicked()
         {
-            OnShowClicked?.Invoke();
+            SetStatus(AdStatus.Showing);
+            DebugPanelManager.Instance?.Log($"Showing {_adType}...", LogSource.Sorolla);
 
-            // Log the action
-            DebugPanelManager.Instance?.Log($"Showing {_adType}...");
+#if UNITY_EDITOR
+            // Editor mock: simulate ad completion
+            Invoke(nameof(MockAdComplete), 2f);
+#else
+            ShowAdViaSDK();
+#endif
+        }
+
+        void ShowAdViaSDK()
+        {
+            switch (_adType)
+            {
+                case AdType.Interstitial:
+                    Sorolla.ShowInterstitialAd(() =>
+                    {
+                        SetStatus(AdStatus.Idle);
+                        SorollaDebugEvents.RaiseShowToast("Interstitial completed", ToastType.Success);
+                        DebugPanelManager.Instance?.Log("Interstitial completed", LogSource.Sorolla);
+                    });
+                    break;
+
+                case AdType.Rewarded:
+                    Sorolla.ShowRewardedAd(
+                        () =>
+                        {
+                            SetStatus(AdStatus.Idle);
+                            SorollaDebugEvents.RaiseShowToast("Rewarded ad completed!", ToastType.Success);
+                            DebugPanelManager.Instance?.Log("Rewarded ad - reward granted", LogSource.Sorolla);
+                        },
+                        () =>
+                        {
+                            SetStatus(AdStatus.Failed);
+                            SorollaDebugEvents.RaiseShowToast("Rewarded ad failed", ToastType.Error);
+                            DebugPanelManager.Instance?.Log("Rewarded ad failed", LogSource.Sorolla, LogLevel.Error);
+                        });
+                    break;
+            }
         }
 
         public void SetStatus(AdStatus status)
@@ -116,5 +152,20 @@ namespace Sorolla.DebugUI
             _accentColor = accentColor;
             UpdateVisuals();
         }
+
+#if UNITY_EDITOR
+        void MockAdLoaded()
+        {
+            SetStatus(AdStatus.Loaded);
+            SorollaDebugEvents.RaiseShowToast($"{_adType} ready (mock)", ToastType.Info);
+        }
+
+        void MockAdComplete()
+        {
+            SetStatus(AdStatus.Idle);
+            SorollaDebugEvents.RaiseShowToast($"{_adType} completed (mock)", ToastType.Success);
+            DebugPanelManager.Instance?.Log($"{_adType} completed (mock)", LogSource.Sorolla);
+        }
+#endif
     }
 }

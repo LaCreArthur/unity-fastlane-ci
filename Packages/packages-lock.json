@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "84f7b855e85e64c4b282f825dff85a9dad1bca9a"
+      "hash": "0c2934a9c40940a7f43398103a38f740593b8c3c"
     },
     "com.gameanalytics.sdk": {
       "version": "7.10.6",
