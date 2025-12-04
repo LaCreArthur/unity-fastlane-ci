@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba62cf99cc8a4ca4851a4139cd7dfa54, type: 3}
+  m_Name: SorollaDebugPrefabs
+  m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.SorollaDebugPrefabs
+  sectionCard: {fileID: 5433906255145651075, guid: 367a4eaf8ddbc49dea84164494fec4b8, type: 3}
+  actionButton: {fileID: 4061478606251795569, guid: 8880e6ff966854a2ca3754d353010682, type: 3}
+  iconButton: {fileID: 0}
+  toggleSwitch: {fileID: 5962998812734752111, guid: 6132b8b42dea74c95994b1723d7b0068, type: 3}
+  adCard: {fileID: 3161167407857535806, guid: d1d2f3eec075348598b84dab39b4a10a, type: 3}
+  identityCard: {fileID: 200219555160303403, guid: e7d27a5ccbd9b4fcbb13a3ad8b7739a4, type: 3}
+  sdkHealthIndicator: {fileID: 4177514296308706469, guid: 65a4251f436234372aac578aab552ce1, type: 3}
+  configRow: {fileID: 6083255250505383354, guid: d3bde5038830f43b08f2f80b6059a1d3, type: 3}
+  toggleRow: {fileID: 2125264722319093170, guid: b6835d918edce4c77909f52b4607e7f5, type: 3}
+  navButton: {fileID: 4429471887295937930, guid: 014a4572171a644978f2e964b8b35805, type: 3}
+  bottomNavBar: {fileID: 3067427145966588240, guid: 2fdc84d3b7c284c50a0d4dbaf0146669, type: 3}
+  toastNotification: {fileID: 4085117076514551062, guid: 7a5ee528b482042098de57eeae64d870, type: 3}
+  statusBadge: {fileID: 368578284077356700, guid: 2dbe5969bbf9a4278bfc99d3dda11a84, type: 3}
+  logEntry: {fileID: 2300527235451658149, guid: 385e17098d81a4c8eb745975bd99cf5e, type: 3}
+  accentBar: {fileID: 0}
+  divider: {fileID: 8358248910017053056, guid: 620ebe4150e544f62adde48a0b5c4ecf, type: 3}
