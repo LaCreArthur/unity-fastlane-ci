@@ -25,10 +25,8 @@ namespace Sorolla.DebugUI
 
         AdStatus _currentStatus = AdStatus.Idle;
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
-
             _loadButton.onClick.AddListener(HandleLoadClicked);
             _showButton.onClick.AddListener(HandleShowClicked);
 

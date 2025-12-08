@@ -10,7 +10,6 @@ namespace Sorolla.DebugUI
     {
         protected SorollaDebugTheme Theme => SorollaDebugTheme.Instance;
 
-        protected virtual void Awake() {}
         protected virtual void OnEnable() => SubscribeToEvents();
         protected virtual void OnDisable() => UnsubscribeFromEvents();
 

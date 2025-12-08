@@ -19,11 +19,7 @@ namespace Sorolla.DebugUI
 
         readonly List<GameObject> _rows = new List<GameObject>();
 
-        protected override void Awake()
-        {
-            base.Awake();
-            _fetchButton.onClick.AddListener(HandleFetchClicked);
-        }
+        void Awake() => _fetchButton.onClick.AddListener(HandleFetchClicked);
 
         void OnDestroy() => _fetchButton.onClick.RemoveListener(HandleFetchClicked);
 

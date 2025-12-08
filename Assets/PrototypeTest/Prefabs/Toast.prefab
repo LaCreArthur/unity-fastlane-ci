@@ -240,7 +240,6 @@ GameObject:
   - component: {fileID: 4829417009006216013}
   - component: {fileID: 1023564913500283854}
   - component: {fileID: 5665319622606102875}
-  - component: {fileID: 1266464290156003808}
   - component: {fileID: 7191658245455541321}
   m_Layer: 5
   m_Name: Toast
@@ -346,22 +345,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1266464290156003808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5861894476845877011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d14a643cd3a48dda259b223a44d838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Sorolla.Samples.DebugPanel::Sorolla.Samples.DebugPanel.Components.Toast
-  messageText: {fileID: 7638437596596576839}
-  backgroundImage: {fileID: 4829417009006216013}
-  accentDot: {fileID: 8631618986903014480}
-  canvasGroup: {fileID: 5665319622606102875}
 --- !u!114 &7191658245455541321
 MonoBehaviour:
   m_ObjectHideFlags: 0

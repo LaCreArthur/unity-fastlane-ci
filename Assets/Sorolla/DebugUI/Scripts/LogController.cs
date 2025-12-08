@@ -22,11 +22,7 @@ namespace Sorolla.DebugUI
 
         LogLevel _currentFilter = LogLevel.All;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            InitializePool();
-        }
+        void Awake() => InitializePool();
 
         protected override void SubscribeToEvents()
         {

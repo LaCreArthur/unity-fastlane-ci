@@ -200,9 +200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3bbd37421d4270bffc43e1a98f7aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.ToggleSwitch
-  _trackImage: {fileID: 2893187250073843883}
-  _knobImage: {fileID: 2421093746951564999}
-  _knobTransform: {fileID: 4562420536530832495}
-  _toggleId: 
-  _isOn: 0
-  _animationDuration: 0.15
+  trackImage: {fileID: 2893187250073843883}
+  knobImage: {fileID: 2421093746951564999}
+  knobTransform: {fileID: 4562420536530832495}
+  toggleId: 
+  isOn: 0
+  animationDuration: 0.15

@@ -29,11 +29,7 @@ namespace Sorolla.DebugUI
 
         string _value;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            _copyButton.onClick.AddListener(CopyToClipboard);
-        }
+        void Awake() => _copyButton.onClick.AddListener(CopyToClipboard);
 
         void OnDestroy() => _copyButton.onClick.RemoveListener(CopyToClipboard);
 

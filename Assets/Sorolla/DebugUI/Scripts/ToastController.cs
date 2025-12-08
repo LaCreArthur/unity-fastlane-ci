@@ -15,9 +15,8 @@ namespace Sorolla.DebugUI
         readonly Queue<ToastNotification> _toastPool = new Queue<ToastNotification>();
         readonly List<ToastNotification> _activeToasts = new List<ToastNotification>();
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
 
             // Pre-warm pool
             for (int i = 0; i < _maxVisibleToasts; i++)

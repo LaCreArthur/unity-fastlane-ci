@@ -1,5 +1,5 @@
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Sorolla.DebugUI
 {
@@ -14,9 +14,8 @@ namespace Sorolla.DebugUI
 
         bool IsPrototype => Sorolla.Config == null || Sorolla.Config.isPrototypeMode;
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
 
 #if !UNITY_EDITOR && !DEBUG
             // Hide in release builds
@@ -28,10 +27,7 @@ namespace Sorolla.DebugUI
             _toggle.SetValue(!IsPrototype); // Toggle ON = Full mode
         }
 
-        void OnDestroy()
-        {
-            _toggle.OnValueChanged -= HandleToggleChanged;
-        }
+        void OnDestroy() => _toggle.OnValueChanged -= HandleToggleChanged;
 
         void HandleToggleChanged(bool isFullMode)
         {
@@ -40,12 +36,12 @@ namespace Sorolla.DebugUI
             if (Sorolla.Config != null)
             {
                 Sorolla.Config.isPrototypeMode = !isFullMode;
-                UnityEditor.EditorUtility.SetDirty(Sorolla.Config);
+                EditorUtility.SetDirty(Sorolla.Config);
             }
 #endif
 
             // Notify UI to refresh
-            var newMode = isFullMode ? SorollaMode.Full : SorollaMode.Prototype;
+            SorollaMode newMode = isFullMode ? SorollaMode.Full : SorollaMode.Prototype;
             SorollaDebugEvents.RaiseModeChanged(newMode);
 
             // Show warning about SDK behavior

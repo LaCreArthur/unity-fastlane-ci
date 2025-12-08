@@ -19,9 +19,8 @@ namespace Sorolla.DebugUI
         Button _button;
         bool _isSelected;
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
             _button = GetComponent<Button>();
             _button.onClick.AddListener(OnClick);
         }

@@ -21,9 +21,8 @@ namespace Sorolla.DebugUI
         [SerializeField] Button _jumpButton;
         [SerializeField] Button _npcTalkButton;
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
 
             // Progression
             _startButton.onClick.AddListener(() => TrackProgression(ProgressionStatus.Start));

@@ -9,46 +9,21 @@ namespace Sorolla.DebugUI
     /// </summary>
     public class QuickToggleController : UIComponentBase
     {
-        [SerializeField] TextMeshProUGUI _label;
-        [SerializeField] ToggleSwitch _toggle;
-        [SerializeField] string _toggleId;
-        [SerializeField] string _labelText;
+        [SerializeField] TextMeshProUGUI label;
+        [SerializeField] ToggleSwitch toggle;
 
-        public Action<bool> OnToggleChanged;
+        public event Action<bool> OnToggleChanged;
 
-        public bool IsOn => _toggle.IsOn;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _toggle.OnValueChanged += HandleToggleChanged;
-            UpdateVisuals();
-        }
-
-        void OnDestroy() => _toggle.OnValueChanged -= HandleToggleChanged;
+        void Awake() => toggle.OnValueChanged += HandleToggleChanged;
+        void OnDestroy() => toggle.OnValueChanged -= HandleToggleChanged;
 
         void HandleToggleChanged(bool value)
         {
             OnToggleChanged?.Invoke(value);
 
-            DebugPanelManager.Instance?.Log(
-                $"{_labelText}: {(value ? "ON" : "OFF")}"
-            );
-
+            DebugPanelManager.Instance?.Log($"{label.text}: {(value ? "ON" : "OFF")}");
             if (value)
-            {
-                SorollaDebugEvents.RaiseShowToast($"{_labelText} Enabled", ToastType.Success);
-            }
+                SorollaDebugEvents.RaiseShowToast($"{label.text} Enabled", ToastType.Success);
         }
-
-        public void Setup(string toggleId, string labelText, bool initialValue = false)
-        {
-            _toggleId = toggleId;
-            _labelText = labelText;
-            UpdateVisuals();
-            _toggle.SetValue(initialValue);
-        }
-
-        void UpdateVisuals() => _label.text = _labelText;
     }
 }

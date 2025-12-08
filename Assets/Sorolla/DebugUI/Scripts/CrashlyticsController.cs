@@ -12,9 +12,8 @@ namespace Sorolla.DebugUI
         [SerializeField] Button _logExceptionButton;
         [SerializeField] Button _forceCrashButton;
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
 
             _logExceptionButton.onClick.AddListener(HandleLogException);
             _forceCrashButton.onClick.AddListener(HandleForceCrash);
