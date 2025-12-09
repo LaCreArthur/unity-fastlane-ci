@@ -76,4 +76,5 @@ namespace Sorolla.DebugUI
             SorollaDebugEvents.RaiseShowToast($"Tracked: {eventName}", ToastType.Success);
         }
     }
+
 }

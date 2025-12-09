@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,33 +9,27 @@ namespace Sorolla.DebugUI
     public class AdCardController : UIComponentBase
     {
         [Header("References")]
-        [SerializeField] Image _accentBar;
-        [SerializeField] TextMeshProUGUI _titleLabel;
-        [SerializeField] TextMeshProUGUI _subtitleLabel;
-        [SerializeField] StatusBadge _statusBadge;
-        [SerializeField] Button _loadButton;
-        [SerializeField] Button _showButton;
+        [SerializeField] Image accentBar;
+        [SerializeField] StatusBadge statusBadge;
+        [SerializeField] Button loadButton;
+        [SerializeField] Button showButton;
 
         [Header("Configuration")]
-        [SerializeField] AdType _adType;
-        [SerializeField] string _title = "Interstitial";
-        [SerializeField] string _subtitle = "Full screen break";
-        [SerializeField] Color _accentColor;
+        [SerializeField] AdType adType;
+        [SerializeField] Color accentColor;
 
         AdStatus _currentStatus = AdStatus.Idle;
 
         void Awake()
         {
-            _loadButton.onClick.AddListener(HandleLoadClicked);
-            _showButton.onClick.AddListener(HandleShowClicked);
-
-            UpdateVisuals();
+            loadButton.onClick.AddListener(HandleLoadClicked);
+            showButton.onClick.AddListener(HandleShowClicked);
         }
 
         void OnDestroy()
         {
-            _loadButton.onClick.RemoveListener(HandleLoadClicked);
-            _showButton.onClick.RemoveListener(HandleShowClicked);
+            loadButton.onClick.RemoveListener(HandleLoadClicked);
+            showButton.onClick.RemoveListener(HandleShowClicked);
         }
 
         protected override void SubscribeToEvents() => SorollaDebugEvents.OnAdStatusChanged += HandleAdStatusChanged;
@@ -45,7 +38,7 @@ namespace Sorolla.DebugUI
 
         void HandleAdStatusChanged(AdType adType, AdStatus status)
         {
-            if (adType == _adType)
+            if (adType == this.adType)
             {
                 SetStatus(status);
             }
@@ -54,7 +47,7 @@ namespace Sorolla.DebugUI
         void HandleLoadClicked()
         {
             SetStatus(AdStatus.Loading);
-            DebugPanelManager.Instance?.Log($"Loading {_adType}...", LogSource.Sorolla);
+            DebugPanelManager.Instance?.Log($"Loading {adType}...", LogSource.Sorolla);
 
 #if UNITY_EDITOR
             // Editor mock: simulate ad loaded after delay
@@ -66,7 +59,7 @@ namespace Sorolla.DebugUI
         void HandleShowClicked()
         {
             SetStatus(AdStatus.Showing);
-            DebugPanelManager.Instance?.Log($"Showing {_adType}...", LogSource.Sorolla);
+            DebugPanelManager.Instance?.Log($"Showing {adType}...", LogSource.Sorolla);
 
 #if UNITY_EDITOR
             // Editor mock: simulate ad completion
@@ -78,7 +71,7 @@ namespace Sorolla.DebugUI
 
         void ShowAdViaSDK()
         {
-            switch (_adType)
+            switch (adType)
             {
                 case AdType.Interstitial:
                     Sorolla.ShowInterstitialAd(() =>
@@ -114,55 +107,40 @@ namespace Sorolla.DebugUI
             switch (status)
             {
                 case AdStatus.Idle:
-                    _statusBadge.SetIdle();
+                    statusBadge.SetIdle();
                     break;
                 case AdStatus.Loading:
-                    _statusBadge.SetLoading();
+                    statusBadge.SetLoading();
                     break;
                 case AdStatus.Loaded:
-                    _statusBadge.SetLoaded();
+                    statusBadge.SetLoaded();
                     break;
                 case AdStatus.Showing:
-                    _statusBadge.SetStatus("SHOWING", Theme.accentPurple);
+                    statusBadge.SetStatus("SHOWING", Theme.accentPurple);
                     break;
                 case AdStatus.Failed:
-                    _statusBadge.SetFailed();
+                    statusBadge.SetFailed();
                     break;
             }
 
             UpdateButtonStates();
         }
 
-        void UpdateButtonStates() => _showButton.interactable = _currentStatus == AdStatus.Loaded;
+        void UpdateButtonStates() => showButton.interactable = _currentStatus == AdStatus.Loaded;
 
-        void UpdateVisuals()
-        {
-            _accentBar.color = _accentColor;
-            _titleLabel.text = _title;
-            _subtitleLabel.text = _subtitle;
-        }
-
-        public void Configure(AdType adType, string title, string subtitle, Color accentColor)
-        {
-            _adType = adType;
-            _title = title;
-            _subtitle = subtitle;
-            _accentColor = accentColor;
-            UpdateVisuals();
-        }
 
 #if UNITY_EDITOR
         void MockAdLoaded()
         {
             SetStatus(AdStatus.Loaded);
-            SorollaDebugEvents.RaiseShowToast($"{_adType} ready (mock)", ToastType.Info);
+            SorollaDebugEvents.RaiseShowToast($"{adType} ready (mock)", ToastType.Info);
         }
 
         void MockAdComplete()
         {
             SetStatus(AdStatus.Idle);
-            SorollaDebugEvents.RaiseShowToast($"{_adType} completed (mock)", ToastType.Success);
-            DebugPanelManager.Instance?.Log($"{_adType} completed (mock)", LogSource.Sorolla);
+            SorollaDebugEvents.RaiseShowToast($"{adType} completed (mock)", ToastType.Success);
+            DebugPanelManager.Instance?.Log($"{adType} completed (mock)", LogSource.Sorolla);
         }
 #endif
     }
