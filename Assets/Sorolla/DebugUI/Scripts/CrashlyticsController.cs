@@ -36,6 +36,8 @@ namespace Sorolla.DebugUI
 
         void HandleForceCrash()
         {
+            Sorolla.LogCrashlytics("Forcing crash from Debug Panel");
+
             DebugPanelManager.Instance?.Log("Forcing crash...", LogSource.Firebase, LogLevel.Error);
             SorollaDebugEvents.RaiseShowToast("Forcing crash...", ToastType.Error);
 
