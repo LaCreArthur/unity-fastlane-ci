@@ -22,8 +22,8 @@ namespace Sorolla.DebugUI
         readonly List<LogEntryData> _allLogs = new List<LogEntryData>();
 
         LogLevel _currentFilter = LogLevel.All;
-
         bool _captureUnityLogs;
+        bool _isLogging; // Prevents duplicate logs when we call Debug.Log
 
         void Awake()
         {
@@ -205,14 +205,16 @@ namespace Sorolla.DebugUI
                 accentColor = accentColor,
             };
 
+            _isLogging = true;
             string formattedMessage = $"<color=#{ColorUtility.ToHtmlStringRGB(accentColor)}>[{source}]</color> {message}";
             switch (level)
             {
                 case LogLevel.Warning: Debug.LogWarning(formattedMessage); break;
                 case LogLevel.Error: Debug.LogError(formattedMessage); break;
-                default:
-                    Debug.Log(formattedMessage); break;
+                default: Debug.Log(formattedMessage); break;
             }
+            _isLogging = false;
+
             SorollaDebugEvents.RaiseLogAdded(data);
         }
 
@@ -232,11 +234,11 @@ namespace Sorolla.DebugUI
 
         void HandleUnityLog(string message, string stackTrace, LogType type)
         {
-            // Only warnings and errors
+            // Skip if we're currently logging from our own Log method
+            if (_isLogging) return;
+
+            // Only warnings and errors from external sources
             if (type != LogType.Warning && type != LogType.Error && type != LogType.Exception)
-                return;
-            // Avoid echo from our own logs
-            if (message.Contains("[Sorolla]") || message.Contains("[UI]") || message.Contains("[GA]"))
                 return;
 
             LogLevel level = type == LogType.Warning ? LogLevel.Warning : LogLevel.Error;

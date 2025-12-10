@@ -9,6 +9,7 @@ namespace Sorolla.DebugUI
         [SerializeField] int tabIndex;
         [SerializeField] Image backgroundHighlight;
 
+        void Start() => SetSelected(tabIndex == 0);
 
         public void OnPointerClick(PointerEventData eventData) => SorollaDebugEvents.RaiseTabChanged(tabIndex);
 
