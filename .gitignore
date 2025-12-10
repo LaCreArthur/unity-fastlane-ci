@@ -102,3 +102,4 @@ firebase_release_notes.txt
 vendor/bundle/
 .bundle/
 Gemfile.lock
+.continue/
