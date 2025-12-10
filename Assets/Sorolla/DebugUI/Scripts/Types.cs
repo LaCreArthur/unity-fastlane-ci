@@ -54,6 +54,14 @@ namespace Sorolla.DebugUI
         Full,
     }
 
+    public enum ToggleType
+    {
+        None,
+        DebugMode,
+        GodMode,
+        CaptureUnityLogs,
+    }
+
     // Data structures
     [Serializable]
     public struct LogEntryData

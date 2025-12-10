@@ -690,15 +690,6 @@ namespace Sorolla.DebugUI.Editor
                     {
                         toggleSwitch.SetValue(defaultValue);
                     }
-
-                    // Add controller
-                    var controller = row.AddComponent<QuickToggleController>();
-                    var so = new SerializedObject(controller);
-                    so.FindProperty("_label").objectReferenceValue = labelTmp;
-                    so.FindProperty("_toggle").objectReferenceValue = toggleSwitch;
-                    so.FindProperty("_toggleId").stringValue = toggleId;
-                    so.FindProperty("_labelText").stringValue = label;
-                    so.ApplyModifiedProperties();
                 }
             }
         }

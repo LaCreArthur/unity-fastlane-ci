@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,23 +9,19 @@ namespace Sorolla.DebugUI
     {
         [SerializeField] Image trackImage;
         [SerializeField] Image knobImage;
-
-        [SerializeField] string toggleId;
+        [SerializeField] ToggleType toggleType;
         [SerializeField] bool isOn;
-
         [SerializeField] float animationDuration = 0.15f;
 
         float _knobOffX;
         float _knobOnX;
         Coroutine _animationCoroutine;
         RectTransform _knobTransform;
-        public event Action<bool> OnValueChanged;
 
         void Awake()
         {
             _knobTransform = knobImage.GetComponent<RectTransform>();
 
-            // Calculate knob positions based on track width
             float trackWidth = trackImage.rectTransform.rect.width;
             _knobOffX = -trackWidth / 5f;
             _knobOnX = trackWidth / 5f;
@@ -40,12 +35,16 @@ namespace Sorolla.DebugUI
         {
             isOn = value;
             UpdateVisual(animate);
-            OnValueChanged?.Invoke(isOn);
 
-            if (!string.IsNullOrEmpty(toggleId))
-            {
-                SorollaDebugEvents.RaiseToggleChanged(toggleId, isOn);
-            }
+            if (toggleType == ToggleType.None) return;
+
+            SorollaDebugEvents.RaiseToggleChanged(toggleType, isOn);
+
+            // Log and toast using enum name
+            string label = toggleType.ToString();
+            DebugPanelManager.Instance?.Log($"{label}: {(isOn ? "ON" : "OFF")}");
+            if (isOn)
+                SorollaDebugEvents.RaiseShowToast($"{label} Enabled", ToastType.Success);
         }
 
         void UpdateVisual(bool animate)

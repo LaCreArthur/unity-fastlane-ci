@@ -29,8 +29,8 @@ namespace Sorolla.DebugUI
         public static void RaiseModeChanged(SorollaMode mode) => OnModeChanged?.Invoke(mode);
 
         // Toggle Events
-        public static event Action<string, bool> OnToggleChanged;
-        public static void RaiseToggleChanged(string toggleId, bool value) => OnToggleChanged?.Invoke(toggleId, value);
+        public static event Action<ToggleType, bool> OnToggleChanged;
+        public static void RaiseToggleChanged(ToggleType toggle, bool value) => OnToggleChanged?.Invoke(toggle, value);
 
         // Log Events
         public static event Action<LogEntryData> OnLogAdded;

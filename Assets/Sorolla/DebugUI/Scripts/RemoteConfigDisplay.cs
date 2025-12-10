@@ -1,4 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Sorolla.Adapters;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,48 +9,41 @@ using UnityEngine.UI;
 namespace Sorolla.DebugUI
 {
     /// <summary>
-    ///     Displays remote config key-value pairs. Self-sufficient - calls Sorolla API directly.
+    ///     Displays remote config key-value pairs from Firebase.
+    ///     If keys array is empty, auto-discovers all keys from Remote Config.
     /// </summary>
     public class RemoteConfigDisplay : UIComponentBase
     {
-        [SerializeField] GameObject _configRowPrefab;
-        [SerializeField] Transform _container;
-        [SerializeField] Button _fetchButton;
+        [SerializeField] GameObject configRowPrefab;
+        [SerializeField] Transform container;
+        [SerializeField] Button fetchButton;
 
-        [Header("Config Keys to Display")]
-        [SerializeField] string[] _keysToDisplay = { "feature_enabled", "ad_frequency", "level_config" };
+        [Header("Config Keys (leave empty to show all)")]
+        [SerializeField] string[] _keysToDisplay;
 
         readonly List<GameObject> _rows = new List<GameObject>();
 
-        void Awake() => _fetchButton.onClick.AddListener(HandleFetchClicked);
+        void Awake() => fetchButton.onClick.AddListener(HandleFetchClicked);
 
-        void OnDestroy() => _fetchButton.onClick.RemoveListener(HandleFetchClicked);
+        void OnDestroy() => fetchButton.onClick.RemoveListener(HandleFetchClicked);
 
         void Start()
         {
-            // Show initial values if already available
+            container.gameObject.SetActive(false);
             if (Sorolla.IsRemoteConfigReady())
-            {
                 RefreshConfigDisplay();
-            }
         }
 
         void HandleFetchClicked()
         {
-            _fetchButton.interactable = false;
+            fetchButton.interactable = false;
             DebugPanelManager.Instance?.Log("Fetching Remote Config...", LogSource.Firebase);
-
-#if UNITY_EDITOR
-            // Editor mock
-            Invoke(nameof(MockFetchComplete), 1f);
-#else
             Sorolla.FetchRemoteConfig(OnFetchComplete);
-#endif
         }
 
         void OnFetchComplete(bool success)
         {
-            _fetchButton.interactable = true;
+            fetchButton.interactable = true;
 
             if (success)
             {
@@ -66,32 +62,42 @@ namespace Sorolla.DebugUI
         {
             ClearRows();
 
-            foreach (string key in _keysToDisplay)
+            // Use specified keys or auto-discover all from Firebase
+            string[] keys = _keysToDisplay != null && _keysToDisplay.Length > 0
+                ? _keysToDisplay
+                : FirebaseRemoteConfigAdapter.GetKeys().ToArray();
+
+            if (keys.Length == 0)
+                return;
+
+            container.gameObject.SetActive(true);
+
+            foreach (string key in keys)
             {
-                string value = Sorolla.GetRemoteConfig(key, "—");
+                string value = FirebaseRemoteConfigAdapter.GetString(key, "—");
                 AddConfigRow(key, value);
+            }
+
+            // Defer layout rebuild to next frame (required for nested layouts)
+            StartCoroutine(RebuildLayoutNextFrame());
+        }
+
+        IEnumerator RebuildLayoutNextFrame()
+        {
+            yield return null; // Wait one frame for children to initialize
+            
+            // Rebuild from container up through all parent layouts
+            RectTransform current = container as RectTransform;
+            while (current != null)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(current);
+                current = current.parent as RectTransform;
             }
         }
 
-#if UNITY_EDITOR
-        void MockFetchComplete()
+        void AddConfigRow(string key, object value)
         {
-            _fetchButton.interactable = true;
-            SorollaDebugEvents.RaiseShowToast("Remote Config fetched (mock)", ToastType.Success);
-            DebugPanelManager.Instance?.Log("Remote Config fetch successful (mock)", LogSource.Firebase);
-
-            // Show mock values
-            ClearRows();
-            AddConfigRow("feature_enabled", true);
-            AddConfigRow("ad_frequency", 3);
-            AddConfigRow("level_config", "easy");
-            AddConfigRow("reward_multiplier", 1.5f);
-        }
-#endif
-
-        public void AddConfigRow(string key, object value)
-        {
-            GameObject row = Instantiate(_configRowPrefab, _container);
+            GameObject row = Instantiate(configRowPrefab, container);
             _rows.Add(row);
 
             var texts = row.GetComponentsInChildren<TextMeshProUGUI>();
@@ -99,34 +105,32 @@ namespace Sorolla.DebugUI
             {
                 texts[0].text = key;
                 texts[1].text = FormatValue(value);
-                texts[1].color = GetColorForType(value);
+                texts[1].color = GetValueColor(value);
             }
         }
 
         void ClearRows()
         {
             foreach (GameObject row in _rows)
-            {
                 Destroy(row);
-            }
             _rows.Clear();
         }
 
-        string FormatValue(object value)
+        static string FormatValue(object value) => value switch
         {
-            if (value is string str) return $"\"{str}\"";
-            if (value is float f) return f.ToString("F1");
-            if (value is bool b) return b ? "true" : "false";
-            return value?.ToString() ?? "null";
-        }
+            string s => $"\"{s}\"",
+            float f => f.ToString("F2"),
+            bool b => b ? "true" : "false",
+            _ => value?.ToString() ?? "null",
+        };
 
-        Color GetColorForType(object value)
+        Color GetValueColor(object value) => value switch
         {
-            if (value is string) return Theme.accentOrange;
-            if (value is float or double) return Theme.accentYellow;
-            if (value is int or long) return Theme.accentCyan;
-            if (value is bool) return Theme.accentPurple;
-            return Theme.textPrimary;
-        }
+            string => Theme.accentOrange,
+            float or double => Theme.accentYellow,
+            int or long => Theme.accentCyan,
+            bool => Theme.accentPurple,
+            _ => Theme.textPrimary,
+        };
     }
 }

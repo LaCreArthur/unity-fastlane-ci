@@ -15,12 +15,15 @@ namespace Sorolla.DebugUI
         [SerializeField] ScrollRect scrollRect;
         [SerializeField] int maxLogEntries = 100;
         [SerializeField] int poolSize = 20;
+        [SerializeField] bool captureUnityLogs = true;
 
         readonly Queue<LogEntryView> _pool = new Queue<LogEntryView>();
         readonly List<LogEntryView> _activeEntries = new List<LogEntryView>();
         readonly List<LogEntryData> _allLogs = new List<LogEntryData>();
 
         LogLevel _currentFilter = LogLevel.All;
+
+        bool _captureUnityLogs;
 
         void Awake()
         {
@@ -29,6 +32,9 @@ namespace Sorolla.DebugUI
             SorollaDebugEvents.OnLogAdded += HandleLogAdded;
             SorollaDebugEvents.OnLogsClear += HandleLogsClear;
             SorollaDebugEvents.OnLogFilterChanged += HandleFilterChanged;
+            SorollaDebugEvents.OnToggleChanged += HandleToggleChanged;
+
+            SetCaptureUnityLogs(captureUnityLogs);
         }
 
         void OnDestroy()
@@ -36,6 +42,14 @@ namespace Sorolla.DebugUI
             SorollaDebugEvents.OnLogAdded -= HandleLogAdded;
             SorollaDebugEvents.OnLogsClear -= HandleLogsClear;
             SorollaDebugEvents.OnLogFilterChanged -= HandleFilterChanged;
+            SorollaDebugEvents.OnToggleChanged -= HandleToggleChanged;
+            Application.logMessageReceived -= HandleUnityLog;
+        }
+
+        void HandleToggleChanged(ToggleType toggle, bool value)
+        {
+            if (toggle == ToggleType.CaptureUnityLogs)
+                SetCaptureUnityLogs(value);
         }
 
         protected override void SubscribeToEvents() { }
@@ -199,6 +213,44 @@ namespace Sorolla.DebugUI
                 default:
                     Debug.Log(formattedMessage); break;
             }
+            SorollaDebugEvents.RaiseLogAdded(data);
+        }
+
+        // === Unity Log Capture ===
+
+        /// <summary>Toggle Unity log capture - wire to ToggleSwitch in inspector</summary>
+        public void SetCaptureUnityLogs(bool enabled)
+        {
+            if (enabled == _captureUnityLogs) return;
+            _captureUnityLogs = enabled;
+
+            if (enabled)
+                Application.logMessageReceived += HandleUnityLog;
+            else
+                Application.logMessageReceived -= HandleUnityLog;
+        }
+
+        void HandleUnityLog(string message, string stackTrace, LogType type)
+        {
+            // Only warnings and errors
+            if (type != LogType.Warning && type != LogType.Error && type != LogType.Exception)
+                return;
+            // Avoid echo from our own logs
+            if (message.Contains("[Sorolla]") || message.Contains("[UI]") || message.Contains("[GA]"))
+                return;
+
+            LogLevel level = type == LogType.Warning ? LogLevel.Warning : LogLevel.Error;
+            Color accentColor = level == LogLevel.Warning ? Theme.accentYellow : Theme.accentRed;
+
+            var data = new LogEntryData
+            {
+                timestamp = DateTime.Now.ToString("HH:mm:ss.ff"),
+                source = LogSource.Game,
+                level = level,
+                message = message,
+                accentColor = accentColor,
+            };
+
             SorollaDebugEvents.RaiseLogAdded(data);
         }
     }
