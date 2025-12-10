@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8185926465792777617}
   - component: {fileID: 8296059327570172761}
   - component: {fileID: 2210666639707585465}
+  - component: {fileID: 1704142858325908149}
+  - component: {fileID: 4845194301542133111}
   m_Layer: 0
   m_Name: Logo Icon
   m_TagString: Untagged
@@ -75,6 +77,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1704142858325908149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109493235175769160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7600653a8d46464ca9f8db3860b9e5d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.ModeSprite
+  prototypeSprite: {fileID: 21300000, guid: 10b7a0cf0dc4c4a8395785a111e86046, type: 3}
+  fullSprite: {fileID: 21300000, guid: ad426679a12bc43839b58e4d8452eab3, type: 3}
+--- !u!114 &4845194301542133111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109493235175769160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721a686020a640d88a013c6510f4e89d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.ModeColor
+  prototypeColor: {r: 0.9843137, g: 0.7529412, b: 0.14117648, a: 1}
+  fullColor: {r: 0.5058824, g: 0.54901963, b: 0.972549, a: 1}
 --- !u!1 &1926477448749441822
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +117,7 @@ GameObject:
   - component: {fileID: 4089168627251755993}
   - component: {fileID: 7113659624963547340}
   - component: {fileID: 5286430152869682118}
+  - component: {fileID: 4035084062123480733}
   m_Layer: 0
   m_Name: Logo Container
   m_TagString: Untagged
@@ -172,3 +203,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 7
+--- !u!114 &4035084062123480733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926477448749441822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721a686020a640d88a013c6510f4e89d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.ModeColor
+  prototypeColor: {r: 0.23921569, g: 0.16470589, b: 0.08627451, a: 1}
+  fullColor: {r: 0.12156863, g: 0.11372549, b: 0.23137255, a: 1}

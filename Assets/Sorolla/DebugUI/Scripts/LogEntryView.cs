@@ -18,7 +18,7 @@ namespace Sorolla.DebugUI
 
         public void SetData(LogEntryData data)
         {
-            _backgroundImage.color = new Color(data.accentColor.r, data.accentColor.g, data.accentColor.b, 0.2f);
+            _backgroundImage.color = new Color(data.accentColor.r, data.accentColor.g, data.accentColor.b, 0.05f);
             accentBar.color = data.accentColor;
             timestampLabel.text = data.timestamp;
             sourceBadgeLabel.text = data.source.ToString().ToUpper();

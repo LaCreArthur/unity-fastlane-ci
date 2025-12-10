@@ -15,9 +15,9 @@ namespace Sorolla.DebugUI
         [SerializeField] Image background;
         [SerializeField] TextMeshProUGUI label;
         [SerializeField] LogLevel filterLevel;
+        [SerializeField] bool startSelected;
 
         Button _button;
-        bool _isSelected;
 
         void Awake()
         {
@@ -26,6 +26,11 @@ namespace Sorolla.DebugUI
         }
 
         void OnDestroy() => _button.onClick.RemoveListener(OnClick);
+
+        void Start()
+        {
+            if (startSelected) SetSelected(true);
+        }
 
         void OnClick()
         {
@@ -42,21 +47,10 @@ namespace Sorolla.DebugUI
 
         public void SetSelected(bool selected)
         {
-            _isSelected = selected;
             background.color = selected ? Theme.cardBackgroundLight : Color.clear;
             label.color = selected ? Theme.textPrimary : Theme.textSecondary;
-        }
 
-        public void Initialize(LogLevel level, bool startSelected = false)
-        {
-            filterLevel = level;
-            label.text = level.ToString().ToUpper();
-
-            if (startSelected)
-            {
-                SetSelected(true);
-                s_currentSelected = this;
-            }
+            if (selected) s_currentSelected = this;
         }
     }
 }

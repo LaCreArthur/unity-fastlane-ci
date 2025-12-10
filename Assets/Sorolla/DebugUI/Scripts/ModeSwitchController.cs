@@ -1,53 +1,55 @@
 using UnityEditor;
-using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sorolla.DebugUI
 {
     /// <summary>
     ///     Toggle to switch SDK mode (Prototype/Full) in Editor/Debug builds.
-    ///     Actual SDK behavior won't change until app restart.
     /// </summary>
     public class ModeSwitchController : UIComponentBase
     {
-        [SerializeField] ToggleSwitch _toggle;
-        [SerializeField] GameObject _container; // Hide entire row in release builds
+        Button _toggle;
+        bool _isPrototype;
 
-        bool IsPrototype => Sorolla.Config == null || Sorolla.Config.isPrototypeMode;
+        static bool IsPrototype => Sorolla.Config == null || Sorolla.Config.isPrototypeMode;
 
         void Awake()
         {
 
 #if !UNITY_EDITOR && !DEBUG
-            // Hide in release builds
-            _container.SetActive(false);
+            gameObject.SetActive(false);
             return;
 #endif
-
-            _toggle.OnValueChanged += HandleToggleChanged;
-            _toggle.SetValue(!IsPrototype); // Toggle ON = Full mode
+            _toggle = GetComponent<Button>();
+            _toggle.onClick.AddListener(HandleToggleChanged);
         }
 
-        void OnDestroy() => _toggle.OnValueChanged -= HandleToggleChanged;
-
-        void HandleToggleChanged(bool isFullMode)
+        static void HandleToggleChanged()
         {
 #if UNITY_EDITOR
             // Actually change the config in Editor
             if (Sorolla.Config != null)
             {
-                Sorolla.Config.isPrototypeMode = !isFullMode;
+                Sorolla.Config.isPrototypeMode = !Sorolla.Config.isPrototypeMode;
                 EditorUtility.SetDirty(Sorolla.Config);
             }
+#else
+            // Do not change SDK behavior in builds
+            UnityEngine.Debug.LogWarning("[Sorolla Debug UI] Mode switch called in build, but SDK behavior remains unchanged.");
 #endif
 
             // Notify UI to refresh
-            SorollaMode newMode = isFullMode ? SorollaMode.Full : SorollaMode.Prototype;
+            SorollaMode newMode = IsPrototype ? SorollaMode.Prototype : SorollaMode.Full;
             SorollaDebugEvents.RaiseModeChanged(newMode);
 
+            // Redirect to default tab when entering prototype (Ads tab disabled)
+            if (newMode == SorollaMode.Prototype)
+                SorollaDebugEvents.RaiseTabChanged(0);
+
             // Show warning about SDK behavior
-            string modeName = isFullMode ? "Full" : "Prototype";
+            string modeName = IsPrototype ? "Prototype" : "Full";
             SorollaDebugEvents.RaiseShowToast($"UI switched to {modeName} mode", ToastType.Info);
-            DebugPanelManager.Instance?.Log($"Mode: {modeName} (SDK unchanged until restart)", LogSource.Sorolla, LogLevel.Warning);
+            DebugPanelManager.Instance?.Log($"Mode: {modeName} (SDK unchanged on build)", LogSource.Sorolla, LogLevel.Warning);
         }
     }
 }

@@ -22,21 +22,24 @@ namespace Sorolla.DebugUI
 
         LogLevel _currentFilter = LogLevel.All;
 
-        void Awake() => InitializePool();
-
-        protected override void SubscribeToEvents()
+        void Awake()
         {
+            InitializePool();
+            // Subscribe here, not OnEnable - must capture logs even when tab is inactive
             SorollaDebugEvents.OnLogAdded += HandleLogAdded;
             SorollaDebugEvents.OnLogsClear += HandleLogsClear;
             SorollaDebugEvents.OnLogFilterChanged += HandleFilterChanged;
         }
 
-        protected override void UnsubscribeFromEvents()
+        void OnDestroy()
         {
             SorollaDebugEvents.OnLogAdded -= HandleLogAdded;
             SorollaDebugEvents.OnLogsClear -= HandleLogsClear;
             SorollaDebugEvents.OnLogFilterChanged -= HandleFilterChanged;
         }
+
+        protected override void SubscribeToEvents() { }
+        protected override void UnsubscribeFromEvents() { }
 
         void InitializePool()
         {
@@ -57,11 +60,9 @@ namespace Sorolla.DebugUI
 
         LogEntryView GetFromPool()
         {
-            if (_pool.Count > 0)
-            {
-                return _pool.Dequeue();
-            }
-            return CreatePooledEntry();
+            if (_pool.Count == 0)
+                CreatePooledEntry();
+            return _pool.Dequeue();
         }
 
         void ReturnToPool(LogEntryView entry)
@@ -71,13 +72,7 @@ namespace Sorolla.DebugUI
             _pool.Enqueue(entry);
         }
 
-        void HandleLogAdded(LogEntryData data) => AddLog(data);
-
-        void HandleLogsClear() => ClearLogs();
-
-        void HandleFilterChanged(LogLevel level) => SetFilter(level);
-
-        public void AddLog(LogEntryData data)
+        void HandleLogAdded(LogEntryData data)
         {
             _allLogs.Add(data);
 
@@ -96,6 +91,23 @@ namespace Sorolla.DebugUI
             // Auto-scroll to bottom
             Canvas.ForceUpdateCanvases();
             scrollRect.verticalNormalizedPosition = 0f;
+        }
+
+        void HandleLogsClear()
+        {
+            _allLogs.Clear();
+
+            foreach (LogEntryView entry in _activeEntries)
+            {
+                ReturnToPool(entry);
+            }
+            _activeEntries.Clear();
+        }
+
+        void HandleFilterChanged(LogLevel level)
+        {
+            _currentFilter = level;
+            RefreshDisplay();
         }
 
         void DisplayLogEntry(LogEntryData data)
@@ -179,6 +191,14 @@ namespace Sorolla.DebugUI
                 accentColor = accentColor,
             };
 
+            string formattedMessage = $"<color=#{ColorUtility.ToHtmlStringRGB(accentColor)}>[{source}]</color> {message}";
+            switch (level)
+            {
+                case LogLevel.Warning: Debug.LogWarning(formattedMessage); break;
+                case LogLevel.Error: Debug.LogError(formattedMessage); break;
+                default:
+                    Debug.Log(formattedMessage); break;
+            }
             SorollaDebugEvents.RaiseLogAdded(data);
         }
     }

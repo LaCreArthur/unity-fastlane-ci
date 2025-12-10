@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7428284979241777575}
   - component: {fileID: 4441433501118002203}
   - component: {fileID: 3116443211665421355}
+  - component: {fileID: 8040100651366972705}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3647059, g: 0.39215687, b: 0.69411767, a: 1}
+  m_Color: {r: 0.5058824, g: 0.54901963, b: 0.972549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -96,6 +97,20 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &8040100651366972705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209080631681312881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721a686020a640d88a013c6510f4e89d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.ModeColor
+  prototypeColor: {r: 0.9843137, g: 0.7529412, b: 0.14117648, a: 1}
+  fullColor: {r: 0.5058824, g: 0.54901963, b: 0.972549, a: 1}
 --- !u!1 &4429471887295937930
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +144,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7844935454888444032}
   - {fileID: 3349746703552763565}
   - {fileID: 6607759300982186564}
   m_Father: {fileID: 0}
@@ -150,9 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad381573ffb648d18ffe019e6f9ff691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.NavButton
-  _icon: {fileID: 4441433501118002203}
-  _label: {fileID: 4732506721033516602}
-  _tabIndex: 0
+  tabIndex: 0
+  backgroundHighlight: {fileID: 7305063243683920444}
 --- !u!222 &1092092040103187524
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -174,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.07058824, g: 0.07058824, b: 0.13725491, a: 1}
+  m_Color: {r: 0.12156863, g: 0.11372549, b: 0.23137255, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -249,6 +264,7 @@ GameObject:
   - component: {fileID: 5604128189603294233}
   - component: {fileID: 4732506721033516602}
   - component: {fileID: 1738899120814976842}
+  - component: {fileID: 1448307674649588966}
   m_Layer: 0
   m_Name: Label
   m_TagString: Untagged
@@ -272,7 +288,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 36, y: -44}
+  m_AnchoredPosition: {x: 88, y: -130}
   m_SizeDelta: {x: 51.64, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5604128189603294233
@@ -312,8 +328,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289815645
-  m_fontColor: {r: 0.3647059, g: 0.39215687, b: 0.69411767, a: 1}
+    rgba: 4294478977
+  m_fontColor: {r: 0.5058824, g: 0.54901963, b: 0.972549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -389,3 +405,128 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &1448307674649588966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6194156633408585386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721a686020a640d88a013c6510f4e89d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.ModeColor
+  prototypeColor: {r: 0.9843137, g: 0.7529412, b: 0.14117648, a: 1}
+  fullColor: {r: 0.5058824, g: 0.54901963, b: 0.972549, a: 1}
+--- !u!1 &8911437342659371066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7844935454888444032}
+  - component: {fileID: 5131858829870199687}
+  - component: {fileID: 7305063243683920444}
+  - component: {fileID: 8252487538780122413}
+  - component: {fileID: 1474793612114620799}
+  m_Layer: 0
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7844935454888444032
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911437342659371066}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 220824156192782623}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 176, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5131858829870199687
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911437342659371066}
+  m_CullTransparentMesh: 1
+--- !u!114 &7305063243683920444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911437342659371066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.12156863, g: 0.11372549, b: 0.23137255, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 1028970841, guid: b2f871453779e44f2a4d4b7a5cfb3957, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 5
+--- !u!114 &8252487538780122413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911437342659371066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 1
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 60
+  m_PreferredHeight: 60
+  m_FlexibleWidth: 0
+  m_FlexibleHeight: 0
+  m_LayoutPriority: 1
+--- !u!114 &1474793612114620799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911437342659371066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721a686020a640d88a013c6510f4e89d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.ModeColor
+  prototypeColor: {r: 0.23921569, g: 0.16470589, b: 0.08627451, a: 1}
+  fullColor: {r: 0.11764706, g: 0.11764706, b: 0.23921569, a: 1}
