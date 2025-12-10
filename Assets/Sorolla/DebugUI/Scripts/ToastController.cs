@@ -8,9 +8,9 @@ namespace Sorolla.DebugUI
     /// </summary>
     public class ToastController : UIComponentBase
     {
-        [SerializeField] GameObject _toastPrefab;
-        [SerializeField] Transform _toastContainer;
-        [SerializeField] int _maxVisibleToasts = 3;
+        [SerializeField] GameObject toastPrefab;
+        [SerializeField] Transform toastContainer;
+        [SerializeField] int maxVisibleToasts = 3;
 
         readonly Queue<ToastNotification> _toastPool = new Queue<ToastNotification>();
         readonly List<ToastNotification> _activeToasts = new List<ToastNotification>();
@@ -19,7 +19,7 @@ namespace Sorolla.DebugUI
         {
 
             // Pre-warm pool
-            for (int i = 0; i < _maxVisibleToasts; i++)
+            for (int i = 0; i < maxVisibleToasts; i++)
             {
                 CreatePooledToast();
             }
@@ -38,7 +38,7 @@ namespace Sorolla.DebugUI
             _activeToasts.Add(toast);
 
             // Limit visible toasts
-            while (_activeToasts.Count > _maxVisibleToasts)
+            while (_activeToasts.Count > maxVisibleToasts)
             {
                 ToastNotification oldest = _activeToasts[0];
                 _activeToasts.RemoveAt(0);
@@ -63,7 +63,7 @@ namespace Sorolla.DebugUI
 
         ToastNotification CreatePooledToast()
         {
-            GameObject toastGO = Instantiate(_toastPrefab, _toastContainer);
+            GameObject toastGO = Instantiate(toastPrefab, toastContainer);
             toastGO.SetActive(false);
             var toast = toastGO.GetComponent<ToastNotification>();
             _toastPool.Enqueue(toast);

@@ -10,14 +10,14 @@ namespace Sorolla.DebugUI
     {
 
         [Header("References")]
-        [SerializeField] GameObject _panelRoot;
-        [SerializeField] TabController _tabController;
-        [SerializeField] ToastController _toastController;
-        [SerializeField] LogController _logController;
+        [SerializeField] GameObject panelRoot;
+        [SerializeField] TabController tabController;
+        [SerializeField] ToastController toastController;
+        [SerializeField] LogController logController;
 
         [Header("Settings")]
-        [SerializeField] bool _showOnStart = true;
-        [SerializeField] KeyCode _toggleKey = KeyCode.BackQuote;
+        [SerializeField] bool showOnStart = true;
+        [SerializeField] KeyCode toggleKey = KeyCode.BackQuote;
 
         public static DebugPanelManager Instance { get; private set; }
 
@@ -35,12 +35,12 @@ namespace Sorolla.DebugUI
             DontDestroyOnLoad(gameObject);
         }
 
-        void Start() => SetVisible(_showOnStart);
+        void Start() => SetVisible(showOnStart);
 
         void Update()
         {
             // Toggle with key
-            if (Input.GetKeyDown(_toggleKey))
+            if (Input.GetKeyDown(toggleKey))
             {
                 TogglePanel();
             }
@@ -73,12 +73,12 @@ namespace Sorolla.DebugUI
         public void SetVisible(bool visible)
         {
             IsVisible = visible;
-            _panelRoot.SetActive(visible);
+            panelRoot.SetActive(visible);
         }
 
         public void ShowToast(string message, ToastType type = ToastType.Info) => SorollaDebugEvents.RaiseShowToast(message, type);
 
-        public void Log(string message, LogSource source = LogSource.UI, LogLevel level = LogLevel.Info) => _logController.Log(message, source, level);
+        public void Log(string message, LogSource source = LogSource.UI, LogLevel level = LogLevel.Info) => logController.Log(message, source, level);
 
         public void SwitchToTab(int tabIndex) => SorollaDebugEvents.RaiseTabChanged(tabIndex);
 

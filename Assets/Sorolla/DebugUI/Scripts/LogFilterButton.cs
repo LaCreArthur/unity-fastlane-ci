@@ -11,10 +11,10 @@ namespace Sorolla.DebugUI
     public class LogFilterButton : UIComponentBase
     {
 
-        static LogFilterButton _currentSelected;
-        [SerializeField] Image _background;
-        [SerializeField] TextMeshProUGUI _label;
-        [SerializeField] LogLevel _filterLevel;
+        static LogFilterButton s_currentSelected;
+        [SerializeField] Image background;
+        [SerializeField] TextMeshProUGUI label;
+        [SerializeField] LogLevel filterLevel;
 
         Button _button;
         bool _isSelected;
@@ -29,33 +29,33 @@ namespace Sorolla.DebugUI
 
         void OnClick()
         {
-            if (_currentSelected != null)
+            if (s_currentSelected != null)
             {
-                _currentSelected.SetSelected(false);
+                s_currentSelected.SetSelected(false);
             }
 
             SetSelected(true);
-            _currentSelected = this;
+            s_currentSelected = this;
 
-            SorollaDebugEvents.RaiseLogFilterChanged(_filterLevel);
+            SorollaDebugEvents.RaiseLogFilterChanged(filterLevel);
         }
 
         public void SetSelected(bool selected)
         {
             _isSelected = selected;
-            _background.color = selected ? Theme.cardBackgroundLight : Color.clear;
-            _label.color = selected ? Theme.textPrimary : Theme.textSecondary;
+            background.color = selected ? Theme.cardBackgroundLight : Color.clear;
+            label.color = selected ? Theme.textPrimary : Theme.textSecondary;
         }
 
         public void Initialize(LogLevel level, bool startSelected = false)
         {
-            _filterLevel = level;
-            _label.text = level.ToString().ToUpper();
+            filterLevel = level;
+            label.text = level.ToString().ToUpper();
 
             if (startSelected)
             {
                 SetSelected(true);
-                _currentSelected = this;
+                s_currentSelected = this;
             }
         }
     }

@@ -10,11 +10,11 @@ namespace Sorolla.DebugUI
     /// </summary>
     public class LogController : UIComponentBase
     {
-        [SerializeField] GameObject _logEntryPrefab;
-        [SerializeField] Transform _logContainer;
-        [SerializeField] ScrollRect _scrollRect;
-        [SerializeField] int _maxLogEntries = 100;
-        [SerializeField] int _poolSize = 20;
+        [SerializeField] GameObject logEntryPrefab;
+        [SerializeField] Transform logContainer;
+        [SerializeField] ScrollRect scrollRect;
+        [SerializeField] int maxLogEntries = 100;
+        [SerializeField] int poolSize = 20;
 
         readonly Queue<LogEntryView> _pool = new Queue<LogEntryView>();
         readonly List<LogEntryView> _activeEntries = new List<LogEntryView>();
@@ -40,7 +40,7 @@ namespace Sorolla.DebugUI
 
         void InitializePool()
         {
-            for (int i = 0; i < _poolSize; i++)
+            for (int i = 0; i < poolSize; i++)
             {
                 CreatePooledEntry();
             }
@@ -48,7 +48,7 @@ namespace Sorolla.DebugUI
 
         LogEntryView CreatePooledEntry()
         {
-            GameObject entryGO = Instantiate(_logEntryPrefab, _logContainer);
+            GameObject entryGO = Instantiate(logEntryPrefab, logContainer);
             entryGO.SetActive(false);
             var entry = entryGO.GetComponent<LogEntryView>();
             _pool.Enqueue(entry);
@@ -82,7 +82,7 @@ namespace Sorolla.DebugUI
             _allLogs.Add(data);
 
             // Trim old logs
-            while (_allLogs.Count > _maxLogEntries)
+            while (_allLogs.Count > maxLogEntries)
             {
                 _allLogs.RemoveAt(0);
             }
@@ -95,7 +95,7 @@ namespace Sorolla.DebugUI
 
             // Auto-scroll to bottom
             Canvas.ForceUpdateCanvases();
-            _scrollRect.verticalNormalizedPosition = 0f;
+            scrollRect.verticalNormalizedPosition = 0f;
         }
 
         void DisplayLogEntry(LogEntryData data)
@@ -107,7 +107,7 @@ namespace Sorolla.DebugUI
             _activeEntries.Add(entry);
 
             // Trim displayed entries
-            while (_activeEntries.Count > _poolSize)
+            while (_activeEntries.Count > poolSize)
             {
                 LogEntryView oldest = _activeEntries[0];
                 _activeEntries.RemoveAt(0);
@@ -131,7 +131,7 @@ namespace Sorolla.DebugUI
             _activeEntries.Clear();
 
             // Re-display filtered logs
-            int startIndex = Mathf.Max(0, _allLogs.Count - _poolSize);
+            int startIndex = Mathf.Max(0, _allLogs.Count - poolSize);
             for (int i = startIndex; i < _allLogs.Count; i++)
             {
                 if (PassesFilter(_allLogs[i], _currentFilter))

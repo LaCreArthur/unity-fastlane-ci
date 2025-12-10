@@ -185,11 +185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6cd2877ba444414ae305ed70a2371e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.IdentityCardController
-  _labelText: {fileID: 4455080272265477315}
-  _valueText: {fileID: 3162569291838236700}
-  _copyButton: {fileID: 1258935208014373860}
-  _identityType: 1
-  _customLabel: 
+  labelText: {fileID: 4455080272265477315}
+  valueText: {fileID: 3162569291838236700}
+  copyButton: {fileID: 1258935208014373860}
+  identityType: 1
+  customLabel: 
 --- !u!1 &5560457104536799606
 GameObject:
   m_ObjectHideFlags: 0

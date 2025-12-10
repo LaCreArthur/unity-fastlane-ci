@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sorolla.DebugUI.SorollaDebugTheme
   canvasBackground: {r: 0.05, g: 0.05, b: 0.06, a: 1}
   cardBackground: {r: 0.1, g: 0.1, b: 0.12, a: 1}
-  cardBackgroundLight: {r: 0.15, g: 0.15, b: 0.17, a: 1}
+  cardBackgroundLight: {r: 0.44313726, g: 0.44313726, b: 0.47843137, a: 1}
   accentPurple: {r: 0.42, g: 0.36, b: 0.91, a: 1}
   accentGreen: {r: 0.3, g: 0.69, b: 0.31, a: 1}
   accentRed: {r: 0.91, g: 0.3, b: 0.3, a: 1}

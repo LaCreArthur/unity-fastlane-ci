@@ -21,21 +21,21 @@ namespace Sorolla.DebugUI
             AdjustId,
         }
 
-        [SerializeField] TextMeshProUGUI _labelText;
-        [SerializeField] TextMeshProUGUI _valueText;
-        [SerializeField] Button _copyButton;
-        [SerializeField] IdentityType _identityType = IdentityType.Custom;
-        [SerializeField] string _customLabel;
+        [SerializeField] TextMeshProUGUI labelText;
+        [SerializeField] TextMeshProUGUI valueText;
+        [SerializeField] Button copyButton;
+        [SerializeField] IdentityType identityType = IdentityType.Custom;
+        [SerializeField] string customLabel;
 
         string _value;
 
-        void Awake() => _copyButton.onClick.AddListener(CopyToClipboard);
+        void Awake() => copyButton.onClick.AddListener(CopyToClipboard);
 
-        void OnDestroy() => _copyButton.onClick.RemoveListener(CopyToClipboard);
+        void OnDestroy() => copyButton.onClick.RemoveListener(CopyToClipboard);
 
         void Start()
         {
-            if (_identityType != IdentityType.Custom)
+            if (identityType != IdentityType.Custom)
             {
                 AutoPopulate();
             }
@@ -46,7 +46,7 @@ namespace Sorolla.DebugUI
             string label;
             string value;
 
-            switch (_identityType)
+            switch (identityType)
             {
                 case IdentityType.DeviceId:
                     label = "Device ID";
@@ -74,7 +74,7 @@ namespace Sorolla.DebugUI
                     value = GetAdjustId();
                     break;
                 default:
-                    label = _customLabel;
+                    label = customLabel;
                     value = "—";
                     break;
             }
@@ -94,15 +94,14 @@ namespace Sorolla.DebugUI
 #endif
         }
 
-        string GetAdjustId() =>
-            // This would need Adjust SDK integration
-            "N/A";
+        // This would need Adjust SDK integration
+        string GetAdjustId() => "N/A";
 
         public void Setup(string label, string value)
         {
             _value = value;
-            _labelText.text = label;
-            _valueText.text = value;
+            labelText.text = label;
+            valueText.text = value;
         }
 
         void CopyToClipboard()

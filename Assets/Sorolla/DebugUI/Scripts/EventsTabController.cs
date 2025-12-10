@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Sorolla.DebugUI
@@ -8,45 +9,48 @@ namespace Sorolla.DebugUI
     /// </summary>
     public class EventsTabController : UIComponentBase
     {
+        [FormerlySerializedAs("_startButton")]
         [Header("Progression Buttons")]
-        [SerializeField] Button _startButton;
-        [SerializeField] Button _winButton;
-        [SerializeField] Button _failButton;
+        [SerializeField] Button startButton;
+        [FormerlySerializedAs("_winButton")] [SerializeField] Button winButton;
+        [FormerlySerializedAs("_failButton")] [SerializeField] Button failButton;
 
+        [FormerlySerializedAs("_addCoinsButton")]
         [Header("Resource Buttons")]
-        [SerializeField] Button _addCoinsButton;
-        [SerializeField] Button _spendCoinsButton;
+        [SerializeField] Button addCoinsButton;
+        [FormerlySerializedAs("_spendCoinsButton")] [SerializeField] Button spendCoinsButton;
+
 
         [Header("Custom Event Buttons")]
-        [SerializeField] Button _jumpButton;
-        [SerializeField] Button _npcTalkButton;
+        [SerializeField] Button designButton;
+        [SerializeField] Button designValueButton;
 
         void Awake()
         {
 
             // Progression
-            _startButton.onClick.AddListener(() => TrackProgression(ProgressionStatus.Start));
-            _winButton.onClick.AddListener(() => TrackProgression(ProgressionStatus.Complete));
-            _failButton.onClick.AddListener(() => TrackProgression(ProgressionStatus.Fail));
+            startButton.onClick.AddListener(() => TrackProgression(ProgressionStatus.Start));
+            winButton.onClick.AddListener(() => TrackProgression(ProgressionStatus.Complete));
+            failButton.onClick.AddListener(() => TrackProgression(ProgressionStatus.Fail));
 
             // Resources
-            _addCoinsButton.onClick.AddListener(() => TrackResource(ResourceFlowType.Source, "coins", 100));
-            _spendCoinsButton.onClick.AddListener(() => TrackResource(ResourceFlowType.Sink, "coins", 50));
+            addCoinsButton.onClick.AddListener(() => TrackResource(ResourceFlowType.Source, "coins", 100));
+            spendCoinsButton.onClick.AddListener(() => TrackResource(ResourceFlowType.Sink, "coins", 50));
 
             // Custom
-            _jumpButton.onClick.AddListener(() => TrackDesign("player_jump"));
-            _npcTalkButton.onClick.AddListener(() => TrackDesign("npc_talk"));
+            designButton.onClick.AddListener(() => TrackDesign("npc_talk"));
+            designValueButton.onClick.AddListener(() => TrackDesign("tuto_step", 3));
         }
 
         void OnDestroy()
         {
-            _startButton.onClick.RemoveAllListeners();
-            _winButton.onClick.RemoveAllListeners();
-            _failButton.onClick.RemoveAllListeners();
-            _addCoinsButton.onClick.RemoveAllListeners();
-            _spendCoinsButton.onClick.RemoveAllListeners();
-            _jumpButton.onClick.RemoveAllListeners();
-            _npcTalkButton.onClick.RemoveAllListeners();
+            startButton.onClick.RemoveAllListeners();
+            winButton.onClick.RemoveAllListeners();
+            failButton.onClick.RemoveAllListeners();
+            addCoinsButton.onClick.RemoveAllListeners();
+            spendCoinsButton.onClick.RemoveAllListeners();
+            designButton.onClick.RemoveAllListeners();
+            designValueButton.onClick.RemoveAllListeners();
         }
 
         void TrackProgression(ProgressionStatus status)
@@ -68,9 +72,9 @@ namespace Sorolla.DebugUI
             SorollaDebugEvents.RaiseShowToast($"{action}{amount} {currency}", ToastType.Info);
         }
 
-        void TrackDesign(string eventName)
+        void TrackDesign(string eventName, float value = 0)
         {
-            Sorolla.TrackDesign(eventName);
+            Sorolla.TrackDesign(eventName, value);
 
             DebugPanelManager.Instance?.Log($"Design Event: {eventName}", LogSource.GA);
             SorollaDebugEvents.RaiseShowToast($"Tracked: {eventName}", ToastType.Success);
