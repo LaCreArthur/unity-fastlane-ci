@@ -103,3 +103,6 @@ vendor/bundle/
 .bundle/
 Gemfile.lock
 .continue/
+
+# Dev symlinks for UPM samples
+Assets/Samples/
