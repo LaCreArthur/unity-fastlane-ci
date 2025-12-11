@@ -832,7 +832,8 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: SOROLLA_PROTOTYPE
+    Android: SOROLLA_PROTOTYPE;APP_UI_EDITOR_ONLY
+    Standalone: APP_UI_EDITOR_ONLY
     iPhone: SOROLLA_PROTOTYPE
   additionalCompilerArguments: {}
   platformArchitecture: {}
