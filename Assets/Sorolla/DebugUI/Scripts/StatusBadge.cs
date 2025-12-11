@@ -14,6 +14,7 @@ namespace Sorolla.DebugUI
             _label.text = text;
             _label.color = color;
             _background.color = new Color(color.r, color.g, color.b, 0.2f);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
         }
 
         public void SetIdle() => SetStatus("IDLE", Theme.statusIdle);

@@ -49,8 +49,8 @@ namespace Sorolla.DebugUI
             SetStatus(AdStatus.Loading);
             DebugPanelManager.Instance?.Log($"Loading {adType}...", LogSource.Sorolla);
 
-#if UNITY_EDITOR
-            // Editor mock: simulate ad loaded after delay
+#if !MAX_INSTALLED
+            // Mock: simulate ad loaded after delay (no SDK available)
             Invoke(nameof(MockAdLoaded), 1f);
 #endif
             // Real SDK auto-loads ads - this is just for UI feedback
@@ -61,14 +61,15 @@ namespace Sorolla.DebugUI
             SetStatus(AdStatus.Showing);
             DebugPanelManager.Instance?.Log($"Showing {adType}...", LogSource.Sorolla);
 
-#if UNITY_EDITOR
-            // Editor mock: simulate ad completion
-            Invoke(nameof(MockAdComplete), 2f);
-#else
+#if MAX_INSTALLED
             ShowAdViaSDK();
+#else
+            // Mock: simulate ad completion (no SDK available)
+            Invoke(nameof(MockAdComplete), 2f);
 #endif
         }
 
+#if MAX_INSTALLED
         void ShowAdViaSDK()
         {
             switch (adType)
@@ -99,6 +100,7 @@ namespace Sorolla.DebugUI
                     break;
             }
         }
+#endif
 
         public void SetStatus(AdStatus status)
         {
@@ -128,12 +130,12 @@ namespace Sorolla.DebugUI
 
         void UpdateButtonStates() => showButton.interactable = _currentStatus == AdStatus.Loaded;
 
-
-#if UNITY_EDITOR
+#if !MAX_INSTALLED
         void MockAdLoaded()
         {
             SetStatus(AdStatus.Loaded);
             SorollaDebugEvents.RaiseShowToast($"{adType} ready (mock)", ToastType.Info);
+            DebugPanelManager.Instance?.Log($"{adType} loaded (mock)", LogSource.Sorolla);
         }
 
         void MockAdComplete()
@@ -145,3 +147,4 @@ namespace Sorolla.DebugUI
 #endif
     }
 }
+

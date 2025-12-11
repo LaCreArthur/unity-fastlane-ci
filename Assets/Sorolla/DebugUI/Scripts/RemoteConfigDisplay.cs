@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sorolla.Adapters;
@@ -79,15 +78,12 @@ namespace Sorolla.DebugUI
             }
 
             // Defer layout rebuild to next frame (required for nested layouts)
-            StartCoroutine(RebuildLayoutNextFrame());
+            RebuildLayoutNextFrame();
         }
 
-        IEnumerator RebuildLayoutNextFrame()
+        void RebuildLayoutNextFrame()
         {
-            yield return null; // Wait one frame for children to initialize
-            
-            // Rebuild from container up through all parent layouts
-            RectTransform current = container as RectTransform;
+            var current = container as RectTransform;
             while (current != null)
             {
                 LayoutRebuilder.ForceRebuildLayoutImmediate(current);

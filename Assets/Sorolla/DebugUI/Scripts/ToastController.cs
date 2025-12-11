@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sorolla.DebugUI
 {
@@ -44,6 +45,7 @@ namespace Sorolla.DebugUI
                 _activeToasts.RemoveAt(0);
                 ReturnToPool(oldest);
             }
+            RebuildLayout(toast.transform);
         }
 
         ToastNotification GetToastFromPool()
@@ -68,6 +70,12 @@ namespace Sorolla.DebugUI
             var toast = toastGO.GetComponent<ToastNotification>();
             _toastPool.Enqueue(toast);
             return toast;
+        }
+
+        void RebuildLayout(Transform toast)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(toast as RectTransform);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(toastContainer as RectTransform);
         }
     }
 }

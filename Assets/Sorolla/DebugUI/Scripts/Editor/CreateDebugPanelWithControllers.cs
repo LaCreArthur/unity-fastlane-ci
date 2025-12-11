@@ -384,8 +384,17 @@ namespace Sorolla.DebugUI.Editor
             AddHorizontalLayout(privacyRow, 8);
             AddLayoutElement(privacyRow, flexibleWidth: 1, preferredHeight: 48);
 
-            CreateActionButtonFromPrefab("Reset Consent", false, privacyRow.transform);
-            CreateActionButtonFromPrefab("Show ATT", false, privacyRow.transform);
+            GameObject resetBtn = CreateActionButtonFromPrefab("Reset Consent", false, privacyRow.transform);
+            GameObject attBtn = CreateActionButtonFromPrefab("Show ATT", false, privacyRow.transform);
+            GameObject cmpBtn = CreateActionButtonFromPrefab("Show CMP", false, privacyRow.transform);
+
+            // Add PrivacyController
+            var privacyController = privacySection.AddComponent<PrivacyController>();
+            var privacySO = new SerializedObject(privacyController);
+            privacySO.FindProperty("showATTButton").objectReferenceValue = attBtn?.GetComponent<Button>();
+            privacySO.FindProperty("showCMPButton").objectReferenceValue = cmpBtn?.GetComponent<Button>();
+            privacySO.FindProperty("resetConsentButton").objectReferenceValue = resetBtn?.GetComponent<Button>();
+            privacySO.ApplyModifiedProperties();
 
             // Crashlytics Section (with accent)
             GameObject crashSection = InstantiateSectionCardWithAccent("CRASHLYTICS", Theme.accentRed, content);
