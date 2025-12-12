@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: SorollaConfig
   m_EditorClassIdentifier: Sorolla.Runtime::Sorolla.SorollaConfig
   isPrototypeMode: 0
-  maxSdkKey: 
+  maxSdkKey: R3IG4XB8AqE9Ch8c5Ebed_RgfNmTPCWeUwQA7ikp_kIrL11yGRRo1lgT_xkfF9TAfyoxv8wSADgW6bcB6NlP7o
   maxRewardedAdUnitId: 
   maxInterstitialAdUnitId: 
   maxBannerAdUnitId: 
-  adjustAppToken: 
+  adjustAppToken: r2j9la4qig3k
+  adjustSandboxMode: 1
   enableFirebaseAnalytics: 1
   enableCrashlytics: 1
   enableRemoteConfig: 1
