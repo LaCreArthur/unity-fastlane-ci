@@ -106,3 +106,4 @@ Gemfile.lock
 
 # Dev symlinks for UPM samples
 Assets/Samples/
+Packages/com.sorolla.sdk/
