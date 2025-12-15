@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Samples/com.sorolla.sdk/2.1.0/DebugUI/Scenes/Debug UI Scene.unity
     guid: eff42e390bb2340bd929c9d8f47e0167
   m_configObjects:
