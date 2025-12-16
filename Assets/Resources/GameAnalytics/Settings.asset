@@ -27,20 +27,26 @@ MonoBehaviour:
   CustomArea: 
   gameKey:
   - 88b8e4693fce256759783988a0cf304f
+  - f3577a931726045ed482b29daba6473a
   secretKey:
   - 28563347522894acf6e21997c400ff32c1107279
+  - 4fc669b23b3d838e1703c4deafb360243170a61e
   Build:
+  - 0.1
   - 0.1
   SelectedPlatformOrganization:
   - Sorolla
+  - 
   SelectedPlatformStudio:
   - Sorolla Paris
+  - 
   SelectedPlatformGame:
   - Sorolla Palette
-  SelectedPlatformGameID: fe0a0500
-  SelectedOrganization: 01000000
-  SelectedStudio: 01000000
-  SelectedGame: 02000000
+  - 
+  SelectedPlatformGameID: fe0a0500a7e70400
+  SelectedOrganization: 0100000001000000
+  SelectedStudio: 0100000001000000
+  SelectedGame: 0200000005000000
   NewVersion: 
   Changes: 
   SignUpOpen: 0
@@ -62,7 +68,7 @@ MonoBehaviour:
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: -1
-  Platforms: 0b000000
+  Platforms: 0b00000008000000
   CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
@@ -90,7 +96,7 @@ MonoBehaviour:
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 01
+  PlatformFoldOut: 0101
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0
