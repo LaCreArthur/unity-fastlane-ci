@@ -68,5 +68,12 @@
     "input": "Fix iOS ATT looping flow in Unity Editor.",
     "output": "Modified SorollaBootstrapper.cs to prioritize UNITY_EDITOR check in Initialize(). This ensures ShowContextAndRequestEditor() runs in Editor even when Target=iOS, avoiding the native polling loop.",
     "insights": "UNITY_IOS is defined in Editor if Target=iOS. Always use #if UNITY_EDITOR first to separate Editor simulation logic from actual device logic which may rely on native bindings."
+  },
+  {
+    "timestamp": "2025-12-16T14:38:00+01:00",
+    "session_id": "unity-fastlane-ci",
+    "input": "Fix Debug UI showing Prototype mode when SDK is in Full mode on device.",
+    "output": "Added Sorolla.OnInitialized event. Fixed ModeComponentBase, SDKHealthIndicator, IdentityCardController to use observer pattern instead of checking Sorolla.Config/IsInitialized in Start() before init completes.",
+    "insights": "Components checking Sorolla.Config in Start() may run before Initialize() completes, causing null Config. Use observer pattern: subscribe to Sorolla.OnInitialized if not yet initialized, unsubscribe in OnDestroy. USER PREFERENCE: When subscribing a method to an event, subscribe the target method directly (e.g., Sorolla.OnInitialized += CheckSDKStatus) instead of creating a wrapper method that just calls it—avoid wasting lines."
   }
 ]

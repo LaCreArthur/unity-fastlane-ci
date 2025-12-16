@@ -166,9 +166,9 @@ PlayerSettings:
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.sorolla.sdk
-    Standalone: com.sorolla.sdk
-    iPhone: com.sorolla.sdk
+    Android: com.crearthur.fastlanegameci
+    Standalone: com.crearthur.fastlanegameci
+    iPhone: com.crearthur.fastlanegameci
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -526,6 +526,9 @@ PlayerSettings:
       m_SubKind: 
   m_BuildTargetBatching:
   - m_BuildTarget: Android
+    m_StaticBatching: 1
+    m_DynamicBatching: 0
+  - m_BuildTarget: iPhone
     m_StaticBatching: 1
     m_DynamicBatching: 0
   m_BuildTargetShaderSettings: []
