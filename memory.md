@@ -83,3 +83,8 @@ Each entry records a problem, solution, and insight for future reference. Focus 
 - **Problem**: `Unity.Advertisement.IosSupport` not found in DebugUI assembly.
 - **Solution**: Added package ref to asmdef + `UNITY_IOS_SUPPORT_INSTALLED` versionDefine. Wrapped code with define.
 - **Insight**: Optional packages in separate assemblies need: asmdef reference + versionDefine + wrapped code.
+
+### [2025-12-16 17:05] SDK Mode Switch Reliability
+- **Problem**: Switching Full→Proto didn't install Facebook SDK; assembly detection unreliable during mode switches.
+- **Solution**: Removed assembly-based checks in `SdkInstaller`. Now always adds/removes from manifest; `ManifestManager` handles idempotency. Added `FullRequired` requirement for MAX (never uninstalled).
+- **Insight**: Manifest.json is the source of truth. Assembly detection unreliable during domain reloads. `FullRequired` = auto-install in Full, stays in Proto.
