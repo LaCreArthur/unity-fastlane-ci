@@ -47,5 +47,26 @@
     "input": "Fix Debug UI docs (incorrect menu item) and make Debug UI easy to drag-and-drop (prefab w/o dependencies).",
     "output": "Updated README with Sample Import steps. Updated DebugPanelManager to auto-spawn EventSystem. Instructed user to create prefab from scene.",
     "insights": "User prioritizes drag-and-drop ease and accuracy in docs. Wants self-contained prefabs."
+  },
+  {
+    "timestamp": "2025-12-16T10:36:00+01:00",
+    "session_id": "unity-fastlane-ci",
+    "input": "Setup iOS build target and resolve Ruby/CocoaPods errors.",
+    "output": "Installed CocoaPods via Homebrew. Fixed iOS Resolver using system Ruby by toggling build targets (forced env reload).",
+    "insights": "Unity iOS Resolver defaults to system Ruby (2.6) which fails on modern macOS. Fix: Install CocoaPods via Homebrew. Switch Platform (iOS->Android->iOS) forces Unity to pick up new PATH."
+  },
+  {
+    "timestamp": "2025-12-16T10:45:00+01:00",
+    "session_id": "unity-fastlane-ci",
+    "input": "Fix iOS ATT silent fail in Unity Editor.",
+    "output": "Modified ContextScreenView.cs to exclude UNITY_EDITOR from native iOS block. Verified Code path now uses FakeATTDialog.",
+    "insights": "UNITY_IOS definition includes Editor when Target Platform is iOS. Must check !UNITY_EDITOR before calling native bindings."
+  },
+  {
+    "timestamp": "2025-12-16T11:15:00+01:00",
+    "session_id": "unity-fastlane-ci",
+    "input": "Fix iOS ATT looping flow in Unity Editor.",
+    "output": "Modified SorollaBootstrapper.cs to prioritize UNITY_EDITOR check in Initialize(). This ensures ShowContextAndRequestEditor() runs in Editor even when Target=iOS, avoiding the native polling loop.",
+    "insights": "UNITY_IOS is defined in Editor if Target=iOS. Always use #if UNITY_EDITOR first to separate Editor simulation logic from actual device logic which may rely on native bindings."
   }
 ]
