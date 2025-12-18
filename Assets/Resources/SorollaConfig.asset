@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b559785839ef21b4095ed93b65ddd7ad, type: 3}
   m_Name: SorollaConfig
   m_EditorClassIdentifier: Sorolla.Runtime::Sorolla.SorollaConfig
-  isPrototypeMode: 1
+  isPrototypeMode: 0
   maxSdkKey: R3IG4XB8AqE9Ch8c5Ebed_RgfNmTPCWeUwQA7ikp_kIrL11yGRRo1lgT_xkfF9TAfyoxv8wSADgW6bcB6NlP7o
   maxRewardedAdUnitId: 
   maxInterstitialAdUnitId: 
