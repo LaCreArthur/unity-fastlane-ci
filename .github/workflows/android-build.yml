@@ -14,7 +14,7 @@ on:
         type: boolean
 
 env:
-  UNITY_VERSION: 6000.0.62f1
+  UNITY_VERSION: 6000.3.2f1
   ANDROID_BUILD_PATH: build/Android/Android.aab
 
 jobs:

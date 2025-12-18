@@ -14,7 +14,7 @@ on:
         type: boolean
 
 env:
-  UNITY_VERSION: 6000.0.62f1
+  UNITY_VERSION: 6000.3.2f1
   IOS_BUILD_PATH: build/iOS
   XCODE_PROJECT_PATH: build/iOS/iOS/Unity-iPhone.xcodeproj
 
