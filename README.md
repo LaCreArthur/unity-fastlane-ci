@@ -22,27 +22,28 @@ Automated CI/CD pipeline for Unity games targeting Android and iOS platforms. Th
 
 ## Documentation
 
-📖 **[Complete Setup Guide](docs/SETUP_GUIDE.md)** - Step-by-step instructions for:
-- Unity license activation
-- Firebase project setup
-- Android keystore and Play Store configuration
-- iOS certificates, provisioning profiles, and App Store Connect
-- All required GitHub secrets
+📖 **[docs/](docs/README.md)** - All documentation
+
+| Document | Description |
+|----------|-------------|
+| [SETUP_GUIDE.md](docs/SETUP_GUIDE.md) | Complete CI/CD setup (Unity license, Firebase, signing, secrets) |
+| [Sorolla SDK](Packages/com.sorolla.sdk/Documentation~/) | Mobile publisher SDK documentation |
 
 ## Project Structure
 
 ```
-your-unity-project/
-├── .github/
-│   └── workflows/
-│       ├── android-build.yml    # Android CI/CD workflow
-│       └── ios-build.yml        # iOS CI/CD workflow
-├── fastlane/
-│   ├── Fastfile                 # Fastlane lane definitions
-│   └── Pluginfile               # Fastlane plugins
+├── .github/workflows/           # CI/CD workflows (Android, iOS)
+├── fastlane/                    # Fastlane lanes and plugins
+├── docs/                        # Documentation
+│   ├── SETUP_GUIDE.md          # CI/CD setup guide
+│   ├── ai-guidelines/          # AI assistant coding rules
+│   └── development/            # Dev session logs
+├── Packages/
+│   ├── com.sorolla.sdk/        # Mobile publisher SDK
+│   └── com.lacrearthur.facebook-sdk-for-unity/
+├── Assets/                      # Unity assets
 ├── Gemfile                      # Ruby dependencies
-└── docs/
-    └── SETUP_GUIDE.md           # Complete setup documentation
+└── CLAUDE.md                    # Claude Code context
 ```
 
 ## GitHub Secrets Summary
