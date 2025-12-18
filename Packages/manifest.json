@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "com.adjust.sdk": "https://github.com/adjust/unity_sdk.git?path=Assets/Adjust",
+        "com.sorolla.sdk": "https://github.com/LaCreArthur/sorolla-palette-upm.git",
         "com.applovin.mediation.adapters.google.android": "24090000.0.0",
         "com.applovin.mediation.adapters.google.ios": "12140000.0.0",
         "com.applovin.mediation.ads": "8.5.1",

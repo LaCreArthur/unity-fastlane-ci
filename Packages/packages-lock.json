@@ -97,13 +97,14 @@
       "hash": "eb2ada6bcc05407b9ac7c8cf6ac1ab9996310bde"
     },
     "com.sorolla.sdk": {
-      "version": "file:com.sorolla.sdk",
+      "version": "https://github.com/LaCreArthur/sorolla-palette-upm.git",
       "depth": 0,
-      "source": "embedded",
+      "source": "git",
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.2d.sprite": "1.0.0"
-      }
+      },
+      "hash": ""
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
