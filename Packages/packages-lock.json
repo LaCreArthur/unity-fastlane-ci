@@ -7,6 +7,34 @@
       "dependencies": {},
       "hash": "9fdaf1ae21efb824147f48a1324687933541c734"
     },
+    "com.applovin.mediation.adapters.google.android": {
+      "version": "24090000.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
+    "com.applovin.mediation.adapters.google.ios": {
+      "version": "12140000.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
+    "com.applovin.mediation.adapters.googleadmanager.android": {
+      "version": "24090000.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
+    "com.applovin.mediation.adapters.googleadmanager.ios": {
+      "version": "12140000.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
     "com.applovin.mediation.ads": {
       "version": "8.5.1",
       "depth": 0,
@@ -67,6 +95,14 @@
         "com.google.firebase.app": "12.10.1"
       },
       "hash": "eb2ada6bcc05407b9ac7c8cf6ac1ab9996310bde"
+    },
+    "com.lacrearthur.facebook-sdk-for-unity": {
+      "version": "file:com.lacrearthur.facebook-sdk-for-unity",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      }
     },
     "com.sorolla.sdk": {
       "version": "file:com.sorolla.sdk",
@@ -151,9 +187,23 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.mobile.android-logcat": {
+      "version": "1.4.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
       "depth": 3,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.2",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
