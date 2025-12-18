@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "73423133194",
-    "project_id": "fastlane-game-ci",
-    "storage_bucket": "fastlane-game-ci.firebasestorage.app"
+    "project_number": "559744279682",
+    "project_id": "sorolla-sdk",
+    "storage_bucket": "sorolla-sdk.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:73423133194:ios:f081f659dcfbb6e2ee9df3",
+        "mobilesdk_app_id": "1:559744279682:ios:ed765fd5609b38921d409b",
         "android_client_info": {
-          "package_name": "com.crearthur.fastlanegameci"
+          "package_name": "com.sorolla.sdk"
         }
       },
       "api_key": [
         {
-          "current_key": "AIzaSyBl7t2F5_GxFC5n_HjC-xk-1UrotloeXak"
+          "current_key": "AIzaSyCNZT-IcHIj8MddKp4aMbPKq_CgXK2cR5c"
         }
       ],
       "services": {
