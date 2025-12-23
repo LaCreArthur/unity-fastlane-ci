@@ -97,11 +97,13 @@ public class AdjustTestController : MonoBehaviour
             }
             else
             {
+                #if SOROLLA_ADJUST_ENABLED
                 _attribution = $"Network: {attribution.Network ?? "N/A"}\n" +
                                $"Campaign: {attribution.Campaign ?? "N/A"}\n" +
                                $"Adgroup: {attribution.Adgroup ?? "N/A"}\n" +
                                $"Creative: {attribution.Creative ?? "N/A"}\n" +
                                $"Tracker: {attribution.TrackerName ?? "N/A"}";
+                #endif
             }
 
             if (attributionText)
