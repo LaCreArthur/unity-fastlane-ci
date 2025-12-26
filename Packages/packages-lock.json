@@ -8,7 +8,7 @@
       "hash": "9fdaf1ae21efb824147f48a1324687933541c734"
     },
     "com.applovin.mediation.ads": {
-      "version": "8.5.1",
+      "version": "8.5.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {

@@ -834,7 +834,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     Android: APP_UI_EDITOR_ONLY;SOROLLA_FULL;gameanalytics_max_enabled
     Standalone: APP_UI_EDITOR_ONLY
-    iPhone: SOROLLA_FULL;gameanalytics_max_enabled
+    iPhone: SOROLLA_FULL;gameanalytics_max_enabled;APP_UI_EDITOR_ONLY
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -934,11 +934,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 2d314157-a1d6-4c48-b2f7-86651743751e
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Sorolla Palette
-  organizationId: sorollamain
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
