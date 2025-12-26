@@ -1,0 +1,11 @@
+﻿<Solution>
+  <Project Path="Sorolla.DebugUI.csproj" />
+  <Project Path="Sorolla.Editor.csproj" />
+  <Project Path="Sorolla.Runtime.csproj" />
+  <Project Path="Sorolla.Adapters.Adjust.csproj" />
+  <Project Path="Sorolla.Adapters.Firebase.csproj" />
+  <Project Path="Sorolla.Adapters.csproj" />
+  <Project Path="Sorolla.Adapters.MAX.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+</Solution>
