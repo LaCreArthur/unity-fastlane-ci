@@ -1,0 +1,10 @@
+<linker>
+    <!-- Preserve Sorolla adapter assemblies from IL2CPP stripping -->
+    <!-- These use [RuntimeInitializeOnLoadMethod] without direct references -->
+
+    <assembly fullname="Sorolla.Adapters" preserve="all"/>
+    <assembly fullname="Sorolla.Adapters.MAX" preserve="all"/>
+    <assembly fullname="Sorolla.Adapters.Adjust" preserve="all"/>
+    <assembly fullname="Sorolla.Adapters.Firebase" preserve="all"/>
+    <assembly fullname="Sorolla.Runtime" preserve="all"/>
+</linker>

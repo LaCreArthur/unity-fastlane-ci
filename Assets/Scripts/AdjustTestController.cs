@@ -4,6 +4,9 @@ using Sorolla.Adapters;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+#if SOROLLA_ADJUST_ENABLED
+using AdjustSdk;
+#endif
 
 /// <summary>
 ///     Test script for validating Adjust SDK integration.
@@ -97,13 +100,16 @@ public class AdjustTestController : MonoBehaviour
             }
             else
             {
-                #if SOROLLA_ADJUST_ENABLED
-                _attribution = $"Network: {attribution.Network ?? "N/A"}\n" +
-                               $"Campaign: {attribution.Campaign ?? "N/A"}\n" +
-                               $"Adgroup: {attribution.Adgroup ?? "N/A"}\n" +
-                               $"Creative: {attribution.Creative ?? "N/A"}\n" +
-                               $"Tracker: {attribution.TrackerName ?? "N/A"}";
-                #endif
+#if SOROLLA_ADJUST_ENABLED
+                var attr = (AdjustAttribution)attribution;
+                _attribution = $"Network: {attr.Network ?? "N/A"}\n" +
+                               $"Campaign: {attr.Campaign ?? "N/A"}\n" +
+                               $"Adgroup: {attr.Adgroup ?? "N/A"}\n" +
+                               $"Creative: {attr.Creative ?? "N/A"}\n" +
+                               $"Tracker: {attr.TrackerName ?? "N/A"}";
+#else
+                _attribution = "Attribution data available (enable SOROLLA_ADJUST_ENABLED to see details)";
+#endif
             }
 
             if (attributionText)
