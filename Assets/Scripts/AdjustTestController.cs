@@ -1,6 +1,6 @@
 using System.Collections;
-using Sorolla;
-using Sorolla.Adapters;
+using Sorolla.Palette;
+using Sorolla.Palette.Adapters;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,18 +60,18 @@ public class AdjustTestController : MonoBehaviour
 
     IEnumerator WaitForInit()
     {
-        while (!SorollaSDK.IsInitialized)
+        while (!Palette.IsInitialized)
         {
             yield return new WaitForSeconds(0.5f);
         }
 
-        SorollaConfig config = SorollaSDK.Config;
+        SorollaConfig config = Palette.Config;
         string mode = config != null && config.adjustSandboxMode ? "SANDBOX" : "PRODUCTION";
 
         UpdateStatus("✅ Sorolla Initialized!\n" +
                      $"Mode: {(config?.isPrototypeMode == true ? "Prototype" : "Full")}\n" +
                      $"Adjust Environment: {mode}\n" +
-                     $"Has Consent: {SorollaSDK.HasConsent}");
+                     $"Has Consent: {Palette.HasConsent}");
 
         // Auto-fetch ADID on init
         OnGetAdidClicked();
