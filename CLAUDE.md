@@ -10,6 +10,13 @@ This is a **Unity 6 LTS mobile game project** with two main components:
 1. **Sorolla SDK** (`Packages/com.sorolla.sdk/`) - A plug-and-play mobile publisher SDK
 2. **CI/CD Pipeline** - GameCI + Fastlane for automated builds and distribution
 
+### Important: SDK is a Separate Git Repository
+The `Packages/com.sorolla.sdk/` folder is gitignored in this project but contains its own `.git` repository. When making SDK changes:
+```bash
+cd Packages/com.sorolla.sdk && git add . && git commit -m "message"
+```
+The SDK repo is hosted at: https://github.com/LaCreArthur/sorolla-palette-upm
+
 ## Build & Distribution Commands
 
 ```bash
@@ -30,7 +37,7 @@ bundle exec fastlane ios distribute upload_to_store:true
 ## Sorolla SDK Architecture
 
 ### Two Operating Modes
-- **Prototype**: GameAnalytics + Facebook (rapid UA testing)
+- **Prototype**: GameAnalytics only (rapid UA testing)
 - **Full**: GameAnalytics + MAX + Adjust (production)
 
 ### Assembly Structure (Stub + Implementation Pattern)
@@ -38,7 +45,7 @@ The SDK uses separate assemblies to allow compilation without external SDK depen
 
 ```
 Runtime/
-├── Sorolla.Runtime.asmdef          # Core SDK (SorollaSDK.cs, SorollaBootstrapper.cs)
+├── Sorolla.Runtime.asmdef          # Core SDK (Palette.cs, SorollaBootstrapper.cs)
 └── Adapters/
     ├── Sorolla.Adapters.asmdef     # Stubs - no external refs, always compiles
     ├── MaxAdapter.cs               # Stub → delegates to IMaxAdapter impl
@@ -63,7 +70,7 @@ Runtime/
 ### Initialization Flow
 1. `SorollaBootstrapper` auto-creates via `[RuntimeInitializeOnLoadMethod]`
 2. On iOS: Shows ATT context screen, waits for user decision
-3. Calls `SorollaSDK.Initialize(consent)`
+3. Calls `Palette.Initialize(consent)` (namespace: `Sorolla.Palette`)
 4. Initializes SDKs based on mode and installed packages
 
 ## Code Style (from .github/copilot-instructions.md)
@@ -90,3 +97,10 @@ fastlane/
 ```
 
 Required secrets documented in `docs/SETUP_GUIDE.md` and `README.md`.
+
+## SDK Internal Documentation
+
+The SDK has internal docs at `Packages/com.sorolla.sdk/Documentation~/internal/`. Key maintenance notes:
+- **Task-tracking files rot quickly** - Prefer `devlog.md` (validated learnings) over sprint-style task lists
+- **Session-specific planning docs** should be cleaned up when sessions are abandoned
+- **Check `devlog.md` first** for critical learnings about Unity asmdef patterns, IL2CPP stripping, etc.
