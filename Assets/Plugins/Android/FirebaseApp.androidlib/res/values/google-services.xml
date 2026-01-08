@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
-  <string name="gcm_defaultSenderId" translatable="false">73423133194</string>
-  <string name="google_storage_bucket" translatable="false">fastlane-game-ci.firebasestorage.app</string>
-  <string name="project_id" translatable="false">fastlane-game-ci</string>
-  <string name="google_api_key" translatable="false">AIzaSyDDgXa9dQV1HB1srUTWODHTDys6prIBji4</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDDgXa9dQV1HB1srUTWODHTDys6prIBji4</string>
-  <string name="google_app_id" translatable="false">1:73423133194:android:ed3bf67921167fe4ee9df3</string>
+  <string name="gcm_defaultSenderId" translatable="false">559744279682</string>
+  <string name="google_storage_bucket" translatable="false">sorolla-sdk.firebasestorage.app</string>
+  <string name="project_id" translatable="false">sorolla-sdk</string>
+  <string name="google_api_key" translatable="false">AIzaSyBnql15KGDBU_4kDH4JcTzf41sH6ser1sA</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBnql15KGDBU_4kDH4JcTzf41sH6ser1sA</string>
+  <string name="google_app_id" translatable="false">1:559744279682:android:b3eff60c1f78ed8c1d409b</string>
 </resources>
