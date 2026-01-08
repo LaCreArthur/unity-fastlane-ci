@@ -15,7 +15,7 @@ The `Packages/com.sorolla.sdk/` folder is gitignored in this project but contain
 ```bash
 cd Packages/com.sorolla.sdk && git add . && git commit -m "message"
 ```
-The SDK repo is hosted at: https://github.com/LaCreArthur/sorolla-palette-upm
+The SDK repo is hosted at: https://github.com/sorolla-studio/sorolla-palette
 
 ## Build & Distribution Commands
 
