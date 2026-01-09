@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.adjust.sdk": {
-      "version": "https://github.com/adjust/unity_sdk.git?path=Assets/Adjust",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "9fdaf1ae21efb824147f48a1324687933541c734"
-    },
     "com.applovin.mediation.ads": {
       "version": "8.5.1",
       "depth": 0,
@@ -67,6 +60,15 @@
         "com.google.firebase.app": "12.10.1"
       },
       "hash": "eb2ada6bcc05407b9ac7c8cf6ac1ab9996310bde"
+    },
+    "com.lacrearthur.facebook-sdk-for-unity": {
+      "version": "https://github.com/LaCreArthur/facebook-unity-sdk-upm.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      },
+      "hash": "e42878a81c55b1b25694a24c60f7b6dafca8879f"
     },
     "com.sorolla.sdk": {
       "version": "file:com.sorolla.sdk",
@@ -154,6 +156,13 @@
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
       "depth": 3,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.2",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
