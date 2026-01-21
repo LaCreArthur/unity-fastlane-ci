@@ -16,7 +16,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "322a3d184683d8976fe79c59660c393aa5083431"
+      "hash": "d96dad3e9a7daa68882bb779f085e4de2e4a841c"
     },
     "com.gameanalytics.sdk": {
       "version": "7.10.6",
@@ -138,7 +138,7 @@
       "dependencies": {}
     },
     "com.unity.ide.rider": {
-      "version": "3.0.38",
+      "version": "3.0.39",
       "depth": 0,
       "source": "registry",
       "dependencies": {

@@ -11,7 +11,7 @@
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ads.ios-support": "1.2.0",
     "com.unity.collab-proxy": "2.10.2",
-    "com.unity.ide.rider": "3.0.38",
+    "com.unity.ide.rider": "3.0.39",
     "com.unity.ide.visualstudio": "2.0.26",
     "com.unity.render-pipelines.universal": "17.3.0",
     "com.unity.test-framework": "1.6.0",
@@ -53,13 +53,21 @@
     "com.unity.modules.xr": "1.0.0",
     "com.lacrearthur.facebook-sdk-for-unity": "https://github.com/LaCreArthur/facebook-unity-sdk-upm.git"
   },
-  "scopedRegistries": [ {
-    "name": "package.openupm.com",
-    "url": "https://package.openupm.com",
-    "scopes": [ "com.google.external-dependency-manager", "com.gameanalytics" ]
-  }, {
-    "name": "AppLovin MAX",
-    "url": "https://unity.packages.applovin.com/",
-    "scopes": [ "com.applovin" ]
-  } ]
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.google.external-dependency-manager",
+        "com.gameanalytics"
+      ]
+    },
+    {
+      "name": "AppLovin MAX",
+      "url": "https://unity.packages.applovin.com/",
+      "scopes": [
+        "com.applovin"
+      ]
+    }
+  ]
 }
