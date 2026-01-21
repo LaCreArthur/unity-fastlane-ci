@@ -104,6 +104,12 @@ vendor/bundle/
 Gemfile.lock
 .continue/
 
+# Claude Code and development tooling
+.claude/
+.tldr/
+.tldrignore
+thoughts/
+
 # Dev symlinks for UPM samples
 Assets/Samples/
 Packages/com.sorolla.sdk/
