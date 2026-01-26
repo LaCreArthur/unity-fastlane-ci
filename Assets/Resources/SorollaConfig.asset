@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b559785839ef21b4095ed93b65ddd7ad, type: 3}
   m_Name: SorollaConfig
   m_EditorClassIdentifier: Sorolla.Runtime::Sorolla.SorollaConfig
-  isPrototypeMode: 1
-  maxRewardedAdUnitId: 0648eb07d0c75b03
-  maxInterstitialAdUnitId: d3505197a77a37ce
-  maxBannerAdUnitId: 
+  isPrototypeMode: 0
+  maxSdkKey: R3IG4XB8AqE9Ch8c5Ebed_RgfNmTPCWeUwQA7ikp_kIrL11yGRRo1lgT_xkfF9TAfyoxv8wSADgW6bcB6NlP7o
+  rewardedAdUnit:
+    android: 
+    ios: 
+  interstitialAdUnit:
+    android: 
+    ios: 
+  bannerAdUnit:
+    android: 
+    ios: 
   adjustAppToken: r2j9la4qig3k
   adjustSandboxMode: 1
-  enableFirebaseAnalytics: 1
-  enableCrashlytics: 1
-  enableRemoteConfig: 1

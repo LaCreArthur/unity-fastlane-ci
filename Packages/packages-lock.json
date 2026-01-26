@@ -9,15 +9,6 @@
       },
       "url": "https://unity.packages.applovin.com"
     },
-    "com.coplaydev.unity-mcp": {
-      "version": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.0.2"
-      },
-      "hash": "d96dad3e9a7daa68882bb779f085e4de2e4a841c"
-    },
     "com.gameanalytics.sdk": {
       "version": "7.10.6",
       "depth": 0,
