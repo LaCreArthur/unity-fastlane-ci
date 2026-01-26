@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+**Navigation:** See `.claude/INDEX.md` for keywords and file routing.
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 **Always invoke the `developing-unity-games` skill when working in this repo.**
@@ -52,8 +54,8 @@ Builds run automatically on push/PR to `master`, or manually via GitHub Actions:
 ## Sorolla SDK Architecture
 
 ### Two Operating Modes
-- **Prototype**: GameAnalytics only (rapid UA testing)
-- **Full**: GameAnalytics + MAX + Adjust (production)
+- **Prototype**: GameAnalytics + Facebook + Firebase (rapid UA testing)
+- **Full**: GameAnalytics + Facebook + MAX + Adjust + Firebase (production)
 
 ### Assembly Structure (Stub + Implementation Pattern)
 The SDK uses separate assemblies to allow compilation without external SDK dependencies:
