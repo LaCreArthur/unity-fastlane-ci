@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.adjust.sdk": {
+      "version": "https://github.com/adjust/unity_sdk.git?path=Assets/Adjust",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "88a232de7e6b41a44db10825b88dd91495d7b437"
+    },
     "com.applovin.mediation.ads": {
       "version": "8.5.1",
       "depth": 0,
