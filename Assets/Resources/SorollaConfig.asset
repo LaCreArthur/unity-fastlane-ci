@@ -25,6 +25,12 @@ MonoBehaviour:
     ios: 
   adjustAppToken: r2j9la4qig3k
   adjustSandboxMode: 1
-  tiktokAppId: 
-  tiktokEmAppId: 
-  tiktokAccessToken: 
+  tiktokAppId:
+    android: '7605911980876038152'
+    ios: '7604886597826199560'
+  tiktokEmAppId:
+    android: com.sorolla.hungrysnake3d
+    ios: '6755388400'
+  tiktokAccessToken:
+    android: TThp0JWvC23bjAkrZmcWFVgR4BWh29Gh
+    ios: TTl7GFqg8ERMYUI08cpHTNlYSe9IulGl

@@ -55,7 +55,7 @@ public class TikTokTestController : MonoBehaviour
 
         SorollaConfig config = Palette.Config;
         string mode = config?.isPrototypeMode == true ? "Prototype" : "Full";
-        string appId = config?.tiktokAppId;
+        string appId = config?.tiktokAppId?.Current;
         string maskedId = string.IsNullOrEmpty(appId) ? "(empty)" :
             appId.Length > 6 ? appId[..3] + "..." + appId[^3..] : "***";
 
