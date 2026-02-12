@@ -1,0 +1,3 @@
+# TikTok Business SDK - required per docs (section 1.3)
+-keep class com.tiktok.** { *; }
+-keep class com.android.billingclient.api.** { *; }
