@@ -1,19 +1,18 @@
 default_platform(:android)
 
+PROJECT_ROOT = File.expand_path('..', __dir__)
+
+# Resolve a path relative to the project root if not already absolute
+def resolve_path(path)
+  path = path.to_s
+  Pathname.new(path).absolute? ? path : File.join(PROJECT_ROOT, path)
+end
+
 # Read release notes from file or use provided string
-# @param options [Hash] Options hash with :notes_path or :notes
-# @return [String] Release notes content
 def read_release_notes(options)
   if options[:notes_path]
-    # Resolve path relative to project root (parent of fastlane directory)
-    notes_path = options[:notes_path].to_s
-    
-    # If path is relative, resolve from project root
-    unless Pathname.new(notes_path).absolute?
-      project_root = File.expand_path('..', __dir__)
-      notes_path = File.join(project_root, notes_path)
-    end
-    
+    notes_path = resolve_path(options[:notes_path])
+
     if File.exist?(notes_path)
       File.read(notes_path)
     else
@@ -45,13 +44,7 @@ platform :android do
   lane :distribute do |options|
     # Validate required environment variables
     firebase_app_id = require_env!("FIREBASE_APP_ID_ANDROID")
-    aab_path = require_env!("ANDROID_AAB_PATH")
-    
-    # Resolve AAB path relative to project root
-    unless Pathname.new(aab_path).absolute?
-      project_root = File.expand_path('..', __dir__)
-      aab_path = File.join(project_root, aab_path)
-    end
+    aab_path = resolve_path(require_env!("ANDROID_AAB_PATH"))
     
     UI.user_error!("AAB file not found at: #{aab_path}") unless File.exist?(aab_path)
     
@@ -90,13 +83,7 @@ platform :ios do
   lane :distribute do |options|
     # Validate required environment variables
     firebase_app_id = require_env!("FIREBASE_APP_ID_IOS")
-    ipa_path = require_env!("IOS_IPA_PATH")
-    
-    # Resolve IPA path relative to project root
-    unless Pathname.new(ipa_path).absolute?
-      project_root = File.expand_path('..', __dir__)
-      ipa_path = File.join(project_root, ipa_path)
-    end
+    ipa_path = resolve_path(require_env!("IOS_IPA_PATH"))
     
     UI.user_error!("IPA file not found at: #{ipa_path}") unless File.exist?(ipa_path)
     
