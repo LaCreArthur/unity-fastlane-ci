@@ -17,9 +17,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **`master`**: Production template - full CI/CD setup
 
 ### SDK is a Separate Repository
-The SDK folder is gitignored here but has its own `.git`. Commits:
+The SDK folder is gitignored here but has its own `.git`. See SDK's `CLAUDE.md` Git Policy for commit rules.
 ```bash
-cd Packages/com.sorolla.sdk && git add . && git commit -m "message"
+cd Packages/com.sorolla.sdk
+# Always stage by explicit filename - never git add -A or git add .
+git add file1.cs file2.cs && git commit -m "message"
 ```
 Repo: https://github.com/sorolla-studio/sorolla-palette
 
