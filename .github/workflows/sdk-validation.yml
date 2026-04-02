@@ -1,0 +1,56 @@
+name: SDK Validation
+
+on:
+  push:
+    paths: ['Packages/com.sorolla.sdk/**']
+  pull_request:
+    paths: ['Packages/com.sorolla.sdk/**']
+
+jobs:
+  test:
+    name: EditMode Tests - Unity ${{ matrix.unity-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        unity-version: ['2022.3.62f1', '6000.0.62f1']
+
+    steps:
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-SDK-${{ matrix.unity-version }}-${{ hashFiles('Packages/com.sorolla.sdk/**') }}
+          restore-keys: |
+            Library-SDK-${{ matrix.unity-version }}-
+
+      - name: Run EditMode Tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: ${{ matrix.unity-version }}
+          testMode: EditMode
+          projectPath: .
+          checkName: SDK Tests - ${{ matrix.unity-version }}
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.unity-version }}
+          path: artifacts/

@@ -7,14 +7,38 @@
       "dependencies": {},
       "hash": "88a232de7e6b41a44db10825b88dd91495d7b437"
     },
+    "com.applovin.mediation.adapters.googleadmanager.android": {
+      "version": "25010000.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
+    "com.applovin.mediation.adapters.googleadmanager.ios": {
+      "version": "13010001.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
     "com.applovin.mediation.ads": {
-      "version": "8.6.1",
+      "version": "8.6.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.google.external-dependency-manager": "1.2.182"
       },
       "url": "https://unity.packages.applovin.com"
+    },
+    "com.coplaydev.coplay": {
+      "version": "https://github.com/CoplayDev/coplay-unity-plugin.git#beta",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.inputsystem": "1.1.1",
+        "com.unity.cloud.gltfast": "6.12.1"
+      },
+      "hash": "7d4ecbd3bf148efbb6c9c07b28fdedd5c44855e8"
     },
     "com.gameanalytics.sdk": {
       "version": "7.10.6",
@@ -39,7 +63,7 @@
       "dependencies": {
         "com.google.firebase.app": "13.7.0"
       },
-      "hash": "ea748f8317f4fa19607d2d03f934ffa3b64703ff"
+      "hash": "704d160d950f3e8b1fa74b393a762560ed62e158"
     },
     "com.google.firebase.app": {
       "version": "https://github.com/LaCreArthur/unity-firebase-app.git?path=FirebaseApp#13.7.0",
@@ -48,7 +72,7 @@
       "dependencies": {
         "com.google.external-dependency-manager": "1.2.187"
       },
-      "hash": "ea748f8317f4fa19607d2d03f934ffa3b64703ff"
+      "hash": "704d160d950f3e8b1fa74b393a762560ed62e158"
     },
     "com.google.firebase.crashlytics": {
       "version": "https://github.com/LaCreArthur/unity-firebase-app.git?path=FirebaseCrashlytics#13.7.0",
@@ -57,7 +81,7 @@
       "dependencies": {
         "com.google.firebase.app": "13.7.0"
       },
-      "hash": "ea748f8317f4fa19607d2d03f934ffa3b64703ff"
+      "hash": "704d160d950f3e8b1fa74b393a762560ed62e158"
     },
     "com.google.firebase.remote-config": {
       "version": "https://github.com/LaCreArthur/unity-firebase-app.git?path=FirebaseRemoteConfig#13.7.0",
@@ -66,7 +90,7 @@
       "dependencies": {
         "com.google.firebase.app": "13.7.0"
       },
-      "hash": "ea748f8317f4fa19607d2d03f934ffa3b64703ff"
+      "hash": "704d160d950f3e8b1fa74b393a762560ed62e158"
     },
     "com.lacrearthur.facebook-sdk-for-unity": {
       "version": "https://github.com/LaCreArthur/facebook-unity-sdk-upm.git",
@@ -75,7 +99,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.1"
       },
-      "hash": "e42878a81c55b1b25694a24c60f7b6dafca8879f"
+      "hash": "41f5d8a9228e6ebeb5384f7e397375adcefe6f67"
     },
     "com.sorolla.sdk": {
       "version": "file:com.sorolla.sdk",
@@ -83,8 +107,7 @@
       "source": "embedded",
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6",
-        "com.unity.2d.sprite": "1.0.0",
-        "com.unity.ads.ios-support": "1.2.0"
+        "com.unity.2d.sprite": "1.0.0"
       }
     },
     "com.unity.2d.sprite": {
@@ -110,6 +133,19 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.cloud.gltfast": {
+      "version": "6.14.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.burst": "1.8.24",
+        "com.unity.collections": "1.2.4",
+        "com.unity.mathematics": "1.2.6",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.collab-proxy": {
       "version": "2.11.4",
       "depth": 0,
@@ -118,17 +154,16 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collections": {
-      "version": "2.6.2",
+      "version": "6.4.0",
       "depth": 2,
-      "source": "registry",
+      "source": "builtin",
       "dependencies": {
         "com.unity.burst": "1.8.23",
         "com.unity.mathematics": "1.3.2",
-        "com.unity.test-framework": "1.4.6",
         "com.unity.nuget.mono-cecil": "1.11.5",
+        "com.unity.test-framework": "1.4.6",
         "com.unity.test-framework.performance": "3.0.3"
-      },
-      "url": "https://packages.unity.com"
+      }
     },
     "com.unity.ext.nunit": {
       "version": "2.0.5",
@@ -146,11 +181,20 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.26",
+      "version": "2.0.27",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.33"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.inputsystem": {
+      "version": "1.19.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -183,7 +227,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "17.3.0",
+      "version": "17.4.0",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -191,27 +235,26 @@
         "com.unity.mathematics": "1.3.2",
         "com.unity.ugui": "2.0.0",
         "com.unity.collections": "2.4.3",
-        "com.unity.modules.physics": "1.0.0",
         "com.unity.modules.terrain": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "17.3.0",
+      "version": "17.4.0",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "17.3.0",
-        "com.unity.shadergraph": "17.3.0",
-        "com.unity.render-pipelines.universal-config": "17.0.3"
+        "com.unity.render-pipelines.core": "17.4.0",
+        "com.unity.shadergraph": "17.4.0",
+        "com.unity.render-pipelines.universal-config": "17.4.0"
       }
     },
     "com.unity.render-pipelines.universal-config": {
-      "version": "17.0.3",
+      "version": "17.4.0",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "17.0.3"
+        "com.unity.render-pipelines.core": "17.4.0"
       }
     },
     "com.unity.searcher": {
@@ -222,11 +265,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "17.3.0",
+      "version": "17.4.0",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "17.3.0",
+        "com.unity.render-pipelines.core": "17.4.0",
         "com.unity.searcher": "4.9.3"
       }
     },
