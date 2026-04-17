@@ -66,13 +66,16 @@ SDK uses separate assemblies so optional SDKs don't break compilation:
 
 Unity resolves assembly references *before* `#if` blocks - this pattern ensures Prototype mode compiles without MAX/Adjust installed.
 
+## SDK Context
+
+See [docs/SDK.md](docs/SDK.md) for SDK layout, modes, stub+impl pattern, subrepo commit rules, and strict SDK coding rules.
+
 ## Code Style
 
-From `.github/copilot-instructions.md`:
-- **SOLID/DRY/KISS** - Simple solutions, no over-engineering
-- **Never null-check `[SerializeField]`** - Trust Inspector, crash on null is desired
-- **Avoid magic strings** - Use enums/constants/integer IDs
+- **SOLID/DRY/KISS** - simple solutions, no over-engineering
+- **Never null-check `[SerializeField]`** - trust Inspector, crash on null reveals the missing ref
+- **Avoid magic strings** - use enums/constants/integer IDs
 - **ScriptableObjects** for data/events/config
-- **Static events** for communication, avoid god managers
-- **Mobile**: Minimize GC in hot paths, use `UnityEngine.Pool.ObjectPool<T>`
-- **No unit tests** - Focus on playtesting and runtime debugging
+- **Static events** for communication; avoid god managers
+- **Mobile**: minimize GC in hot paths, use `UnityEngine.Pool.ObjectPool<T>`
+- **No unit tests** - focus on playtesting and runtime debugging
