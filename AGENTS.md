@@ -84,7 +84,7 @@ Follow [BOOTSTRAP.md](BOOTSTRAP.md). Do not skip validation steps - "looks right
 - **Don't vendor `Gemfile.lock`.** It's gitignored for a reason - the lock depends on host platform.
 - **Don't commit `*.p8`, `*.p12`, `*.mobileprovision`, `google-services.json`** under `Assets/` - already gitignored.
 - **Don't commit `Library/`, `obj/`, `*.csproj`, `*.sln`.** Unity regenerates.
-- **Don't expand scope.** If a feature is Sorolla-SDK-specific (on `sdk-dev`) or game-specific, it does not belong on `master`.
+- **Don't expand scope.** Game-specific or SDK-specific features belong in a separate repo, not in this reference template.
 
 ## Vendor notes
 

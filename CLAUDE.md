@@ -29,5 +29,4 @@ CI triggers: push/PR to `master` builds both platforms; push to `master` also up
 
 ## Branches
 
-- `master` - the reference CI template. Minimal game code, focus on workflows/fastlane/docs.
-- `sdk-dev` - Sorolla Palette SDK development branch. SDK-specific files live here; do not merge SDK code into `master`.
+Single branch: `master`. This is a reference template; no gameplay or SDK-specific branches.
