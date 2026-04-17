@@ -109,3 +109,6 @@ Gemfile.lock
 # Dev symlinks for UPM samples
 Assets/Samples/
 Packages/com.sorolla.sdk/
+
+# Coplay MCP dev logs (personal tooling, not repo content)
+Packages/Coplay/
