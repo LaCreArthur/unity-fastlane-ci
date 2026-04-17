@@ -6,15 +6,6 @@
 
 ## AI Assistant Guidelines
 
-- **[unity-development.md](ai-guidelines/unity-development.md)** - Master coding guidelines for AI assistants (referenced by Copilot, Continue, Claude Code)
-
-## Development
-
-- **[memory.md](development/memory.md)** - Development session log with problem/solution insights
-
-## SDK Documentation
-
-SDK documentation lives within their respective packages:
-
-- **Sorolla SDK**: `Packages/com.sorolla.sdk/Documentation~/`
-- **Facebook SDK**: `Packages/com.lacrearthur.facebook-sdk-for-unity/README.md`
+- **[../AGENTS.md](../AGENTS.md)** - Canonical instructions for AI agents working on this repo
+- **[../BOOTSTRAP.md](../BOOTSTRAP.md)** - Step-by-step checklist for bootstrapping a new game from this template
+- **[unity-development.md](ai-guidelines/unity-development.md)** - Unity-specific coding guidelines (optional; useful if you extend the template with gameplay code)

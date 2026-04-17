@@ -28,11 +28,19 @@ This comprehensive guide walks you through setting up automated CI/CD for your U
 
 Before starting, ensure you have:
 
-- [ ] A Unity project (2021.3 LTS or newer recommended)
+- [ ] A Unity project on **Unity 6 LTS (6000.3.x)** or newer. Unity 6.0 LTS ends support Oct 2026 - start on 6.3 LTS for longevity.
 - [ ] A GitHub account with your project in a repository
 - [ ] A Google account (for Firebase and Play Store)
 - [ ] An Apple Developer account ($99/year) - for iOS only
-- [ ] Ruby installed locally (for testing Fastlane)
+- [ ] Ruby 3.3+ installed locally (for testing Fastlane)
+
+## 2026 Platform Requirements (read first)
+
+These change yearly - confirm the current rules before shipping:
+
+- **Google Play (effective Aug 31, 2026)**: new apps and updates must target **API 36 (Android 16)**. Wear OS / Android TV can stay on API 35. Set `targetSdkVersion` in Unity -> Project Settings -> Player -> Android -> Other Settings. Closed testing with 12+ testers for 14+ days is required before production for new personal developer accounts.
+- **Apple App Store / TestFlight**: Xcode 26 introduced an `avtool` migration that silently dropped some TestFlight uploads. The iOS workflow here pins Xcode 16.4 for this reason; bump only after verifying TestFlight end-to-end on a test lane. Track: fastlane issues #29743.
+- **Android AAB**: required since Aug 2021. `androidExportType: androidAppBundle` in the workflow.
 
 ### Required Software
 
@@ -103,10 +111,10 @@ Edit `.github/workflows/android-build.yml` and `.github/workflows/ios-build.yml`
 
 ```yaml
 env:
-  UNITY_VERSION: 6000.0.62f1  # Change to your Unity version
+  UNITY_VERSION: 6000.3.2f1  # Change to your Unity version
 ```
 
-Find your Unity version in Unity Hub or `ProjectSettings/ProjectVersion.txt`.
+Find your Unity version in Unity Hub or `ProjectSettings/ProjectVersion.txt`. Match the CI workflow and the Unity editor exactly - GameCI pulls a Docker image per version.
 
 ---
 
@@ -138,10 +146,10 @@ jobs:
         id: getManualLicenseFile
         uses: game-ci/unity-request-activation-file@v2
         with:
-          unityVersion: 6000.0.62f1  # Your Unity version
+          unityVersion: 6000.3.2f1  # Your Unity version
 
       - name: Expose as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Unity_v${{ steps.getManualLicenseFile.outputs.unityVersion }}.alf
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
@@ -793,4 +801,4 @@ bundle exec fastlane ios distribute upload_to_store:true
 
 ---
 
-*Last updated: November 2025*
+*Last updated: April 2026. Dependency versions and platform policies change - verify against current sources before trusting this doc.*

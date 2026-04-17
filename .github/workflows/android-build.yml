@@ -24,20 +24,21 @@ jobs:
 
     steps:
       - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
+        # Pinned to release tag; replace with commit SHA for stricter supply-chain
+        uses: jlumbroso/free-disk-space@v1.3.1
         with:
           tool-cache: true
           large-packages: true
           docker-images: true
           swap-storage: true
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           lfs: true
           fetch-depth: 0  # Full history for release notes
 
       - name: Cache Unity Library
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: Library
           key: Library-Android-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
@@ -88,7 +89,7 @@ jobs:
           cat ${{ github.workspace }}/firebase_release_notes.txt
 
       - name: Upload AAB artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: android-aab
           path: ${{ env.ANDROID_BUILD_PATH }}

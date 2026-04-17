@@ -1,130 +1,118 @@
 # Unity Game CI with Fastlane
 
-Automated CI/CD pipeline for Unity games targeting Android and iOS platforms. This project uses [GameCI](https://game.ci/) for Unity builds and [Fastlane](https://fastlane.tools/) for distribution to Firebase App Distribution and app stores.
+Reference CI/CD template for Unity 6 mobile games. Automated Android (AAB) + iOS (IPA) builds via [GameCI](https://game.ci/), distribution to Firebase App Distribution, Google Play, and TestFlight via [Fastlane](https://fastlane.tools/).
+
+Designed in 2026 to be bootstrapped by an AI coding agent (Claude Code, Codex, Cursor, Copilot). See [AGENTS.md](AGENTS.md) + [BOOTSTRAP.md](BOOTSTRAP.md).
 
 ## Features
 
-- ✅ Automated Unity builds for Android (AAB) and iOS (IPA)
-- ✅ Firebase App Distribution for beta testing
-- ✅ Google Play Store deployment (Android)
-- ✅ App Store Connect / TestFlight deployment (iOS)
-- ✅ Semantic versioning with automatic version code management
-- ✅ Release notes generation from git commits
-- ✅ Manual workflow dispatch with optional store upload
+- Android AAB + iOS IPA builds on GitHub Actions
+- Firebase App Distribution for beta testing
+- Google Play Store + App Store Connect / TestFlight upload
+- Semantic versioning with automatic Android version code (GameCI)
+- Release notes generated from git commits
+- Manual `workflow_dispatch` with optional store upload toggle
+- Claude Code PR review + `@claude` mention workflows (opt-in)
+
+## Stack (April 2026)
+
+| Component | Version | Notes |
+|---|---|---|
+| Unity | 6000.3.x LTS | 6.0 LTS EOL Oct 2026 - prefer 6.3 LTS |
+| GameCI `unity-builder` | `@v4` | latest major |
+| fastlane gem | latest | installed via `bundle install` |
+| Ruby | 3.3 | `ruby/setup-ruby@v1` |
+| GHA actions | `checkout@v5`, `cache@v5`, `upload-artifact@v5`, `download-artifact@v5` | Node 24 |
+| `apple-actions/import-codesign-certs` | `@v6` | Node 24, `productsign` support |
+| Xcode (iOS runner) | pinned `16.4` | Xcode 26 regressed silent TestFlight uploads (fastlane #29743) |
 
 ## Quick Start
 
-1. Click **"Use this template"** to create your own repository
-2. Follow the [Complete Setup Guide](docs/SETUP_GUIDE.md)
-3. Copy `Assets/google-services.json.template` → `Assets/google-services.json` and fill in your Firebase config
-4. Configure GitHub secrets
-5. Push to trigger builds!
+**Human path**: Click "Use this template", then follow [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md).
 
-## Documentation
-
-📖 **[docs/](docs/README.md)** - All documentation
-
-| Document | Description |
-|----------|-------------|
-| [SETUP_GUIDE.md](docs/SETUP_GUIDE.md) | Complete CI/CD setup (Unity license, Firebase, signing, secrets) |
-| [Sorolla SDK](Packages/com.sorolla.sdk/Documentation~/) | Mobile publisher SDK documentation |
+**Agent path**: Clone, then point your agent at [BOOTSTRAP.md](BOOTSTRAP.md) - placeholder table, secret checklist, validation steps formatted for an agent to execute.
 
 ## Project Structure
 
 ```
-├── .github/workflows/           # CI/CD workflows (Android, iOS)
-├── fastlane/                    # Fastlane lanes and plugins
-├── docs/                        # Documentation
-│   ├── SETUP_GUIDE.md          # CI/CD setup guide
-│   ├── ai-guidelines/          # AI assistant coding rules
-│   └── development/            # Dev session logs
-├── Packages/
-│   ├── com.sorolla.sdk/        # Mobile publisher SDK
-│   └── com.lacrearthur.facebook-sdk-for-unity/
-├── Assets/                      # Unity assets
-├── Gemfile                      # Ruby dependencies
-└── CLAUDE.md                    # Claude Code context
+├── .github/workflows/         # android-build, ios-build, claude*
+├── fastlane/
+│   ├── Fastfile               # Android/iOS distribute lanes
+│   └── Pluginfile             # firebase_app_distribution plugin
+├── docs/
+│   ├── SETUP_GUIDE.md         # full setup walkthrough
+│   └── ai-guidelines/         # optional Unity coding guidelines
+├── AGENTS.md                  # canonical agent instructions
+├── BOOTSTRAP.md               # agent-executable adapt checklist
+├── CLAUDE.md                  # Claude Code project instructions
+└── Gemfile                    # Ruby / fastlane deps
 ```
-
-## GitHub Secrets Summary
-
-See [SETUP_GUIDE.md](docs/SETUP_GUIDE.md) for detailed instructions on obtaining each secret.
-
-### Unity
-| Secret | Description |
-|--------|-------------|
-| `UNITY_LICENSE` | Unity license file content |
-| `UNITY_EMAIL` | Unity account email |
-| `UNITY_PASSWORD` | Unity account password |
-
-### Firebase
-| Secret | Description |
-|--------|-------------|
-| `FIREBASE_SERVICE_ACCOUNT_JSON` | Firebase service account JSON |
-| `FIREBASE_APP_ID_ANDROID` | Firebase App ID for Android |
-| `FIREBASE_APP_ID_IOS` | Firebase App ID for iOS |
-
-### Android
-| Secret | Description |
-|--------|-------------|
-| `ANDROID_PACKAGE_NAME` | Android package name (e.g., `com.company.game`) |
-| `ANDROID_KEYSTORE_BASE64` | Base64-encoded keystore file |
-| `ANDROID_KEYSTORE_PASS` | Keystore password |
-| `ANDROID_KEY_ALIAS_NAME` | Key alias name |
-| `ANDROID_KEY_ALIAS_PASS` | Key alias password |
-| `GPLAY_SERVICE_JSON` | Google Play service account JSON |
-
-### iOS
-| Secret | Description |
-|--------|-------------|
-| `APPLE_TEAM_ID` | Apple Developer Team ID |
-| `IOS_BUNDLE_ID` | iOS app bundle identifier |
-| `IOS_DISTRIBUTION_CERTIFICATE_P12_BASE64` | Distribution certificate |
-| `IOS_DISTRIBUTION_CERTIFICATE_PASSWORD` | Certificate password |
-| `IOS_PROVISIONING_PROFILE_BASE64` | Provisioning profile |
-| `IOS_PROVISIONING_PROFILE_NAME` | Profile name (exact match) |
-| `APP_STORE_CONNECT_KEY_ID` | App Store Connect API Key ID |
-| `APP_STORE_CONNECT_ISSUER_ID` | App Store Connect Issuer ID |
-| `APP_STORE_CONNECT_KEY_CONTENT` | Base64-encoded API key (.p8) |
-
-## Workflows
-
-| Workflow | Trigger | Output | Distribution |
-|----------|---------|--------|--------------|
-| Android CI/CD | Push/PR to `master`, Manual | AAB | Firebase + Play Store |
-| iOS CI/CD | Push/PR to `master`, Manual | IPA | Firebase + TestFlight |
 
 ## Local Development
 
 ```bash
-# Install dependencies
-bundle install
+bundle install  # first time only
 
-# Android distribution
-bundle exec fastlane android distribute notes:"Test build"
+# Env vars needed locally (CI sets these from secrets):
+export FIREBASE_APP_ID_ANDROID="1:xxx:android:xxx"
+export ANDROID_AAB_PATH="./build/Android/Android.aab"
+export FIREBASE_APP_ID_IOS="1:xxx:ios:xxx"
+export IOS_IPA_PATH="./build/ipa/YourApp.ipa"
 
-# iOS distribution  
-bundle exec fastlane ios distribute notes:"Test build"
+# Build AAB/IPA from Unity first, then:
+bundle exec fastlane android distribute notes:"Build description"
+bundle exec fastlane ios distribute notes:"Build description"
 
 # With store upload
-bundle exec fastlane android distribute upload_to_store:true
+bundle exec fastlane android distribute upload_to_store:true track:internal
+bundle exec fastlane ios distribute upload_to_store:true
 ```
+
+## CI Workflows
+
+| Workflow | Trigger | Output |
+|---|---|---|
+| `android-build.yml` | push/PR to `master`, manual | AAB -> Firebase + Play Store |
+| `ios-build.yml` | push/PR to `master`, manual | IPA -> Firebase + TestFlight |
+| `claude.yml` | `@claude` mentions | Claude responds in thread |
+| `claude-code-review.yml` | PR opened/synchronize | Claude reviews diff |
+
+Store upload fires automatically on push to `master`, or manually via workflow dispatch.
+
+## Required GitHub Secrets
+
+See [SETUP_GUIDE.md](docs/SETUP_GUIDE.md) for how to obtain each.
+
+**Unity**: `UNITY_LICENSE`, `UNITY_EMAIL`, `UNITY_PASSWORD`
+
+**Firebase**: `FIREBASE_SERVICE_ACCOUNT_JSON`, `FIREBASE_APP_ID_ANDROID`, `FIREBASE_APP_ID_IOS`
+
+**Android**: `ANDROID_PACKAGE_NAME`, `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASS`, `ANDROID_KEY_ALIAS_NAME`, `ANDROID_KEY_ALIAS_PASS`, `GPLAY_SERVICE_JSON`
+
+**iOS**: `APPLE_TEAM_ID`, `IOS_BUNDLE_ID`, `IOS_DISTRIBUTION_CERTIFICATE_P12_BASE64`, `IOS_DISTRIBUTION_CERTIFICATE_PASSWORD`, `IOS_PROVISIONING_PROFILE_BASE64`, `IOS_PROVISIONING_PROFILE_NAME`, `APP_STORE_CONNECT_KEY_ID`, `APP_STORE_CONNECT_ISSUER_ID`, `APP_STORE_CONNECT_KEY_CONTENT`
+
+**Claude Code (optional)**: `CLAUDE_CODE_OAUTH_TOKEN` - or delete `.github/workflows/claude*.yml` if not using.
 
 ## Customization
 
-### Change Tester Groups
+### Firebase tester groups
 
-Edit `fastlane/Fastfile`:
-```ruby
-groups: "qa-testers, beta-testers"  # Comma-separated Firebase group names
+Default is `qa-testers`. Override per-invocation:
+
+```bash
+bundle exec fastlane android distribute groups:"qa-testers,beta-testers"
 ```
 
-### Change Play Store Track
+Or edit the default in `fastlane/Fastfile`.
+
+### Play Store track
 
 ```bash
 bundle exec fastlane android distribute upload_to_store:true track:beta
-# Available: internal, alpha, beta, production
+# Tracks: internal, alpha, beta, production
 ```
+
+Play policy requires progression internal -> closed -> open -> production for new apps (Aug 2026 rules).
 
 ## Troubleshooting
 
@@ -132,10 +120,11 @@ See the [Troubleshooting section](docs/SETUP_GUIDE.md#troubleshooting) in the se
 
 ## Resources
 
-- [GameCI Documentation](https://game.ci/docs)
-- [Fastlane Documentation](https://docs.fastlane.tools)
+- [GameCI](https://game.ci/docs)
+- [Fastlane](https://docs.fastlane.tools)
 - [Firebase App Distribution](https://firebase.google.com/docs/app-distribution)
+- [anthropics/claude-code-action](https://github.com/anthropics/claude-code-action)
 
 ## License
 
-This project is provided as-is for educational and reference purposes.
+Provided as-is for reference and educational use.
