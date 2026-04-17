@@ -19,8 +19,42 @@ env:
   XCODE_PROJECT_PATH: build/iOS/iOS/Unity-iPhone.xcodeproj
 
 jobs:
+  preflight:
+    name: Check iOS secrets
+    runs-on: ubuntu-latest
+    outputs:
+      configured: ${{ steps.check.outputs.configured }}
+    steps:
+      - id: check
+        env:
+          P12: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_P12_BASE64 }}
+          P12_PASS: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_PASSWORD }}
+          PROFILE: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+          PROFILE_NAME: ${{ secrets.IOS_PROVISIONING_PROFILE_NAME }}
+          FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          IOS_BUNDLE_ID: ${{ secrets.IOS_BUNDLE_ID }}
+        run: |
+          missing=()
+          [ -z "$P12" ] && missing+=("IOS_DISTRIBUTION_CERTIFICATE_P12_BASE64")
+          [ -z "$P12_PASS" ] && missing+=("IOS_DISTRIBUTION_CERTIFICATE_PASSWORD")
+          [ -z "$PROFILE" ] && missing+=("IOS_PROVISIONING_PROFILE_BASE64")
+          [ -z "$PROFILE_NAME" ] && missing+=("IOS_PROVISIONING_PROFILE_NAME")
+          [ -z "$FIREBASE_APP_ID_IOS" ] && missing+=("FIREBASE_APP_ID_IOS")
+          [ -z "$APPLE_TEAM_ID" ] && missing+=("APPLE_TEAM_ID")
+          [ -z "$IOS_BUNDLE_ID" ] && missing+=("IOS_BUNDLE_ID")
+          if [ ${#missing[@]} -eq 0 ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "All iOS distribution secrets configured."
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=iOS build skipped::Missing secrets: ${missing[*]}. See BOOTSTRAP.md iOS section or docs/SETUP_GUIDE.md#ios-configuration."
+          fi
+
   build-unity-ios:
     name: Unity iOS Build
+    needs: preflight
+    if: ${{ needs.preflight.outputs.configured == 'true' }}
     runs-on: ubuntu-latest
     outputs:
       buildVersion: ${{ steps.unity_build.outputs.buildVersion }}
@@ -70,7 +104,8 @@ jobs:
   build-and-deploy-ios:
     name: iOS Build & Deploy
     runs-on: macos-latest
-    needs: build-unity-ios
+    needs: [preflight, build-unity-ios]
+    if: ${{ needs.preflight.outputs.configured == 'true' }}
 
     steps:
       - uses: actions/checkout@v5
