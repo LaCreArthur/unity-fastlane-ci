@@ -27,6 +27,3 @@ bundle exec fastlane ios distribute upload_to_store:true
 
 CI triggers: push/PR to `master` builds both platforms; push to `master` also uploads to stores.
 
-## Branches
-
-Single branch: `master`. This is a reference template; no gameplay or SDK-specific branches.
